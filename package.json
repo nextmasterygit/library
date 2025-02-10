@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "publish": "git add . && git commit -m \"$(date +'%d-%m-%y %I:%M %p')\" && git push && npm publish --access public"
+    "publish": "git add . && git commit -m \"$(date +'%d-%m-%y %I:%M %p')\" && git push "
   },
   "keywords": [
     "nextjs",
