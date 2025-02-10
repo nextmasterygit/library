@@ -3,9 +3,9 @@
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import Iconify from "@/@core/common/icon";
+import { cn } from "../../lib/utils";
+import { buttonVariants } from "./button";
+import Iconify from "../../@core/common/icon";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -54,6 +54,7 @@ function Calendar({
         ...classNames,
       }}
       components={{
+        // @ts-ignore
         IconLeft: ({ ...props }) => (
           <Iconify icon="mdi:chevron-left" fontSize={"1.5em"} />
         ),

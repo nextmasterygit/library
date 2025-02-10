@@ -87,7 +87,7 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   const TableHead = () => (
     <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
       <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
-        {expandable && <th></th>}
+        {(expandable || multiExpandable) && <th></th>}
         {selectedRows && (
           <th
             className={twMerge(`   ${tableInsideClass} `, ` ${thHeadClass} `)}

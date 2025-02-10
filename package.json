@@ -1,33 +1,51 @@
 {
-  "name": "enginemastery",
-  "version": "1.0.0",
+  "name": "nextmastery",
+  "version": "1.0.3",
   "description": "A Custom Library",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "publish": "git add . && git commit -m \"$(date +'%d-%m-%y %I:%M %p')\" && git push && npm publish --access public"
   },
   "keywords": [
     "nextjs",
     "components",
-    "hooks"
+    "hooks",
+    "tailwind",
+    "shadcn"
   ],
   "author": "Muhammad Hamail",
-  "license": "MIT",
+  "license": "ICS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextmasterygit/library.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nextmasterygit/library/issues"
+  },
+  "homepage": "https://github.com/nextmasterygit/library#readme",
   "devDependencies": {
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "next": "^13.0.0"
+    "next": "^13.0.0",
+    "react": "^18.0.0"
   },
   "dependencies": {
     "@iconify/react": "^5.2.0",
+    "@radix-ui/react-slot": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "next": "^15.1.6",
+    "next": "^13.0.0",
     "react-day-picker": "^9.5.1",
     "tailwind-merge": "^3.0.1"
   }
