@@ -168,7 +168,12 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
                   </td>
                 ))}
             </tr>
-            {isExpandable(openExpandableRow, index, multiExpandable) && (
+            {isExpandable(
+              openExpandableRow,
+              index,
+              multiExpandable,
+              expandingContent
+            ) && (
               <ExtentableContent
                 index={index}
                 item={item}
@@ -193,9 +198,9 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
               ` ${tableClass} `
             )}
           >
-            {TableHead()}
+            {/* {TableHead()}
 
-            {TableBody()}
+            {TableBody()} */}
           </table>
         </div>
       </main>

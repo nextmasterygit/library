@@ -41,4 +41,3 @@ export { default as Table } from "./components/@cui/table";
 export { default as MyTable } from "./components/table";
 
 export { helpers } from "./@core/utility";
-export * from "./types";

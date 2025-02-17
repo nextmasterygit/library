@@ -1,6 +1,7 @@
 "use client";
 import { FC, useEffect, useState } from "react";
 import Table from "../@cui/table";
+import { TableClassesType } from "../@cui/table/main/TableMainBody";
 import {
   ActionMenuListType,
   ColumnFilterType,
@@ -8,6 +9,7 @@ import {
   ExpandingTableType,
 } from "./tableInterface";
 import TableHeaderAction from "./action/HeaderAction";
+
 interface Props {
   data: Record<string, any>[];
   columns: ColumnType[];
@@ -17,7 +19,7 @@ interface Props {
   expandingContent?: ExpandingTableType;
 }
 import { demoNewActionMenu } from "./headerActionList/demo";
-import { TableClassesType } from "../@cui/table/main/TableMainBody";
+
 const MyTable: FC<Props> = ({
   data,
   columns,

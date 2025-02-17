@@ -95,8 +95,9 @@ export const ExtentableContent = ({
 export const isExpandable = (
   openExpandableRow: number | number[],
   index: number,
-  multiExpandable?: boolean
+  multiExpandable?: boolean,
+  expandingContent?: any
 ) =>
-  multiExpandable && Array.isArray(openExpandableRow)
+  multiExpandable && Array.isArray(openExpandableRow) && expandingContent
     ? openExpandableRow?.includes(index) // Correctly cast to `number[]`
     : openExpandableRow === index;
