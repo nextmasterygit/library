@@ -13,7 +13,7 @@ interface TableProps extends TableMainBodyTypes {
   pagination?: PaginationType;
   header: HeaderType;
 }
-const Table: FC<TableProps> = ({
+const Table = ({
   total,
   columns,
   layoutClass = "p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2",
@@ -29,7 +29,7 @@ const Table: FC<TableProps> = ({
   expandable,
   multiExpandable,
   expandingContent,
-}) => {
+}: TableProps) => {
   const tableMain = () => (
     <TableMainBody
       data={data}
