@@ -198,9 +198,9 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
               ` ${tableClass} `
             )}
           >
-            {/* {TableHead()}
+            {TableHead()}
 
-            {TableBody()} */}
+            {TableBody()}
           </table>
         </div>
       </main>
