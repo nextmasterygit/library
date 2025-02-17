@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
 
 // Define your base button classes and specific variant classes
@@ -58,13 +58,13 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
 
-const Button: FC<Props> = ({
+const Button = ({
   children,
   className,
   size = "2",
   variant = "primary",
   ...props
-}) => {
+}: Props) => {
   let sizeClassName = "";
   if (size === "1") {
     sizeClassName = "px-4 p-1";

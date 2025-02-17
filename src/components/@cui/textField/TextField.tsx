@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, KeyboardEvent, FC, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import useDivDimensions from "../../../@core/customHooks/useDivDimensions";
 import PrefixAndSuffix, { PreSuffixType } from "./function/PrefixAndSuffix";
@@ -44,7 +44,7 @@ interface Props extends CommonInputType {
   prefix?: PreSuffixType;
   suffix?: PreSuffixType;
 }
-const TextField: FC<Props> = ({
+const TextField = ({
   id,
   label,
   labelInside,
@@ -75,7 +75,7 @@ const TextField: FC<Props> = ({
   // For React Hook Form compatibility
   register,
   errors,
-}) => {
+}: Props) => {
   const prefixDimension = useDivDimensions();
   const suffixDimension = useDivDimensions();
   // states

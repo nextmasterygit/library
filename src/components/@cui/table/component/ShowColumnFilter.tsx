@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import IconDropdown, { ContentItem } from "../../dropDown/IconDropdown";
 import { ColumnType } from "../../../../components/table/tableInterface";
 
@@ -9,11 +9,11 @@ export interface ColumnFilterFieldsType {
 interface Props extends ColumnFilterFieldsType {
   columns: ColumnType[];
 }
-const ShowColumnFilter: FC<Props> = ({
+const ShowColumnFilter = ({
   columns,
   columnFilterField,
   setColumnFilterFields,
-}) => {
+}: Props) => {
   const handleShowsFilter = (item: ColumnType) => {
     if (setColumnFilterFields) {
       if (columnFilterField?.some((v) => v.filterId === item.filterId)) {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
 import Pagination, { PaginationType } from "./main/Pagination";

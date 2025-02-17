@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import useDivDimensions from "../../../../@core/customHooks/useDivDimensions";
 import { renderCell } from "../depends/renderCell";
 import { toggleRowSelection } from "../depends/utility";
@@ -42,7 +42,7 @@ export interface TableMainBodyTypes {
   multiExpandable?: boolean;
   expandingContent?: ExpandingTableType;
 }
-const TableMainBody: FC<TableMainBodyTypes> = ({
+const TableMainBody = ({
   data,
   columns,
   rowId = "id",
@@ -52,7 +52,7 @@ const TableMainBody: FC<TableMainBodyTypes> = ({
   expandable,
   multiExpandable,
   expandingContent,
-}) => {
+}: TableMainBodyTypes) => {
   const {
     tableWrapperClass,
     tableClass,

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 
 import IconDropdown from "../../dropDown/IconDropdown";
 import {
@@ -17,12 +17,12 @@ interface Props extends ColumnHideShowType {
   allColumns: ColumnType[];
   columnKey?: ColumnKey;
 }
-const ColumnHideShow: FC<Props> = ({
+const ColumnHideShow = ({
   showOnlyColumns,
   setShowOnlyColumns,
   allColumns,
   columnKey = "title",
-}) => {
+}: Props) => {
   const handleHideShows = (item: ColumnType) => {
     if (setShowOnlyColumns) {
       // Find the index of the column in `allColumns`

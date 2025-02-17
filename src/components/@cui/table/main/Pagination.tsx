@@ -1,4 +1,3 @@
-import { FC } from "react";
 import Button from "../../button";
 import IconDropdown from "../../dropDown/IconDropdown";
 export interface PaginationType {
@@ -8,13 +7,13 @@ export interface PaginationType {
   setDataLimit: (limit: number) => void;
   total?: number;
 }
-const Pagination: FC<PaginationType> = ({
+const Pagination = ({
   currentPage = 1,
   setCurrentPage,
   dataLimit,
   setDataLimit,
   total = dataLimit,
-}) => {
+}: PaginationType) => {
   // total pageCount for Pagination
   const pageCount = Math.ceil(total / dataLimit);
   // Change page

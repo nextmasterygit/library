@@ -1,4 +1,4 @@
-import { FC, JSX } from "react";
+import { JSX } from "react";
 import { hasObjectValues } from "../../../../utils/helpers";
 import { ColumnType } from "../../../../components/table/tableInterface";
 // component
@@ -30,7 +30,7 @@ export interface HeaderType extends ColumnHideShowType {
 interface Props extends HeaderType {
   columns: ColumnType[];
 }
-const TableHeader: FC<Props> = ({
+const TableHeader = ({
   dates,
   headerAction,
   globalFilters,
@@ -39,7 +39,7 @@ const TableHeader: FC<Props> = ({
   showColumnFilterFields,
   showOnlyColumns,
   setShowOnlyColumns,
-}) => {
+}: Props) => {
   const { fromDate, setFromDate, toDate, setToDate } = dates || {};
   const { columnFilter, setColumnFilter } = columnsFilter || {};
   const { setGlobalFilter, globalFilter } = globalFilters || {};

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 type ClassNameType = React.ComponentProps<"div">["className"];
@@ -20,7 +20,7 @@ interface PrefixAndSuffixType {
   setPrefixWidth: (v: string) => void;
   setSuffixWidth: (v: string) => void;
 }
-const PrefixAndSuffix: FC<PrefixAndSuffixType> = ({
+const PrefixAndSuffix = ({
   prefix,
   suffix,
   prefixClassName,
@@ -30,7 +30,7 @@ const PrefixAndSuffix: FC<PrefixAndSuffixType> = ({
   setSuffixWidth,
   prefixDimension,
   suffixDimension,
-}) => {
+}: PrefixAndSuffixType) => {
   useEffect(() => {
     const prefixW = prefix
       ? (Number(prefixDimension.dimension?.width) + 2).toString()

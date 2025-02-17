@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import TextField from "./TextField";
 import Iconify from "../../../@core/common/icon";
 
@@ -7,7 +6,7 @@ interface SearchTextFieldProps extends CommonInputType {
   side?: "left" | "right";
   icon?: string;
 }
-const SearchTextField: FC<SearchTextFieldProps> = ({
+const SearchTextField = ({
   id,
   name,
   onChange,
@@ -20,7 +19,7 @@ const SearchTextField: FC<SearchTextFieldProps> = ({
   className,
   side = "right",
   icon = "material-symbols-light:search",
-}) => {
+}: SearchTextFieldProps) => {
   const prefixSuffix = () => (
     <div className="h-full flex items-center justify-center bg-primary Transition hover:bg-primary/80 ">
       <Iconify icon={icon} />
