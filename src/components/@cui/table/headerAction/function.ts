@@ -1,6 +1,10 @@
 import { Dispatch, JSX, SetStateAction } from "react";
-import { ActionMenuList, ActionStateTypes } from "../tableInterface";
+import {
+  ActionMenuList,
+  ActionStateTypes,
+} from "../../../../utils/interfaces/tableInterface";
 
+// condition on show menu
 export const filterActionMenuCondition = (
   actionMenuList: ActionMenuList[],
   selectedRows: Record<string, unknown>[]
@@ -31,7 +35,7 @@ export const filterActionMenuCondition = (
   }
 };
 
-export const handleRemove = (
+const handleRemove = (
   setSelectedRows: (rows: Record<string, any>[]) => void
 ) => {
   setSelectedRows([]);
@@ -52,6 +56,7 @@ export const handleActionMenu = (
   }));
 };
 
+// click menu action
 export const actionMenuContents = (
   listCondition: ActionMenuList[] | undefined,
   selectedRows: Record<string, unknown>[],

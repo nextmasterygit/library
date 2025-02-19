@@ -1,6 +1,6 @@
 import React from "react";
 import IconDropdown, { ContentItem } from "../../dropDown/IconDropdown";
-import { ColumnType } from "../../../../components/table/tableInterface";
+import { ColumnType } from "../../../../props";
 
 export interface ColumnFilterFieldsType {
   columnFilterField?: ColumnType[];

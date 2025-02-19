@@ -3,10 +3,7 @@ import useDivDimensions from "../../../../@core/customHooks/useDivDimensions";
 import { renderCell } from "../depends/renderCell";
 import { toggleRowSelection } from "../depends/utility";
 import Checkbox from "../../../../components/@cui/textField/Checkbox";
-import {
-  ColumnType,
-  ExpandingTableType,
-} from "../../../../components/table/tableInterface";
+import { ColumnType, ExpandingTableType } from "../../../../props";
 import { twMerge } from "tailwind-merge";
 
 import {

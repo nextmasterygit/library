@@ -1,6 +1,6 @@
 import { currencyFormatter, formatDate } from "../../../../utils/helpers";
 import React from "react";
-import { ColumnType } from "../../../../components/table/tableInterface";
+import { ColumnType } from "../../../../props";
 export const renderCell = (
   item: number | string | Record<string, any> | null,
   column: ColumnType,

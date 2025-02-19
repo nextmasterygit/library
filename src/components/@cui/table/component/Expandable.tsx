@@ -1,8 +1,5 @@
 import Iconify from "../../../../@core/common/icon";
-import {
-  ColumnType,
-  ExpandingTableType,
-} from "../../../../components/table/tableInterface";
+import { ColumnType, ExpandingTableType } from "../../../../props";
 interface ExtendableArrowType {
   setSelectAll: (bool: boolean) => void;
   setSelectedRows: (rows: Record<string, any>[]) => void;

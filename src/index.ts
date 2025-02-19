@@ -38,6 +38,5 @@ export { default as Drawer } from "./components/@cui/drawer/Drawer";
 export { default as DragDropArray } from "./components/@cui/draggable/DragDropArray";
 export { default as InputDatePicker } from "./components/@cui/datePicker/InputDatePicker";
 export { default as Table } from "./components/@cui/table";
-export { default as MyTable } from "./components/table";
 
 export { helpers } from "./@core/utility";

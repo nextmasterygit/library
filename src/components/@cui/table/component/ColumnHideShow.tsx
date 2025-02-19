@@ -1,10 +1,7 @@
 import React from "react";
 
 import IconDropdown from "../../dropDown/IconDropdown";
-import {
-  ColumnType,
-  ColumnKey,
-} from "../../../../components/table/tableInterface";
+import { ColumnType, ColumnKey } from "../../../../props";
 
 import DragDropArray from "../../draggable/DragDropArray";
 import { ClassNameType } from "../../../../utils/interfaces/commonTypes";

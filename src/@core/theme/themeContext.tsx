@@ -1,18 +1,19 @@
-'use client';
+"use client";
+import React from "react";
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useState,
-} from 'react';
+} from "react";
 import {
   TypeThemeContextProps,
   borderRadiusType,
   colorType,
   themeType,
-} from './interface';
-import { chooseColor } from './chooseColor';
+} from "./interface";
+import { chooseColor } from "./chooseColor";
 export const ThemeContext = createContext<TypeThemeContextProps | undefined>(
   undefined
 );
@@ -21,13 +22,13 @@ export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
     return {
-      theme: 'light', // Add default theme here
+      theme: "light", // Add default theme here
       toggleMode: () => {},
       toggleTheme: () => {},
       themeProperties: {},
       setRadius: () => {},
       activeThemeClass: null,
-      color: 'zinc' as keyof typeof chooseColor,
+      color: "zinc" as keyof typeof chooseColor,
     };
   }
   return context;
@@ -35,19 +36,19 @@ export const useTheme = () => {
 
 interface ProviderProps {
   children: React.ReactNode;
-  defaultTheme?: 'light' | 'dark' | 'system';
+  defaultTheme?: "light" | "dark" | "system";
   defaultColor?: colorType;
   defaultRadius?: borderRadiusType;
   themeName?: string;
 }
 const ThemeProvider = ({
   children,
-  defaultTheme = 'system',
-  defaultColor = 'zinc',
-  defaultRadius = '0.5em',
-  themeName = 'mytheme',
+  defaultTheme = "system",
+  defaultColor = "zinc",
+  defaultRadius = "0.5em",
+  themeName = "mytheme",
 }: ProviderProps) => {
-  const [theme, setTheme] = useState<themeType>('light');
+  const [theme, setTheme] = useState<themeType>("light");
   const [color, setColor] = useState<colorType>(defaultColor);
   const [radius, setBorderRadius] = useState<borderRadiusType>(defaultRadius);
   const [activeThemeClass, setActiveThemeClass] = useState<DOMTokenList | null>(
@@ -85,18 +86,18 @@ const ThemeProvider = ({
         for (const [key, value] of Object.entries(selectedTheme)) {
           root.style.setProperty(key, value);
         }
-        root.style.setProperty('--radius', radius);
+        root.style.setProperty("--radius", radius);
       }
     },
     [isClient, radius, saveThemeSettings, theme]
   );
 
   const themeClass = useCallback(
-    (property: 'dark' | 'light') => {
+    (property: "dark" | "light") => {
       if (isClient) {
         const root = document.documentElement;
         const theme = root?.classList;
-        theme.remove('dark', 'light');
+        theme.remove("dark", "light");
         theme.add(property);
         toggleTheme(color, property);
       }
@@ -114,13 +115,13 @@ const ThemeProvider = ({
       setColor(color);
       setBorderRadius(borderRadius);
       themeClass(theme); // Initialize theme without toggling
-    } else if (defaultTheme !== 'system') {
+    } else if (defaultTheme !== "system") {
       themeClass(defaultTheme);
     } else {
       const prefersDarkScheme = window?.matchMedia(
-        '(prefers-color-scheme: dark)'
+        "(prefers-color-scheme: dark)"
       );
-      const sysTheme = prefersDarkScheme.matches ? 'dark' : 'light';
+      const sysTheme = prefersDarkScheme.matches ? "dark" : "light";
       themeClass(sysTheme);
       setTheme(sysTheme);
     }
@@ -133,12 +134,12 @@ const ThemeProvider = ({
       const root = document.documentElement;
       const activeTheme = root?.classList;
       setActiveThemeClass(activeTheme);
-      if (activeTheme.contains('dark')) {
-        themeClass('light');
-        setTheme('light');
+      if (activeTheme.contains("dark")) {
+        themeClass("light");
+        setTheme("light");
       } else {
-        themeClass('dark');
-        setTheme('dark');
+        themeClass("dark");
+        setTheme("dark");
       }
     }
   }, [isClient, themeClass, setTheme]);
@@ -148,7 +149,7 @@ const ThemeProvider = ({
     (borderRadius: borderRadiusType) => {
       if (isClient) {
         const root = document.documentElement;
-        root.style.setProperty('--radius', borderRadius);
+        root.style.setProperty("--radius", borderRadius);
         setBorderRadius(borderRadius);
         saveThemeSettings(theme, color, borderRadius);
       }
@@ -172,8 +173,8 @@ const ThemeProvider = ({
     >
       <div
         style={{
-          minHeight: '100vh',
-          transition: 'background 0.3s, color 0.3s',
+          minHeight: "100vh",
+          transition: "background 0.3s, color 0.3s",
         }}
       >
         {children}

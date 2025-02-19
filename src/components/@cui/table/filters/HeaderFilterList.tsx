@@ -1,10 +1,7 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { useDebounceCallback } from "../../../../@core/customHooks/useDebounce";
 
-import {
-  ColumnFilterType,
-  ColumnType,
-} from "../../../../components/table/tableInterface";
+import { ColumnFilterType, ColumnType } from "../../../../props";
 import SearchTextField from "../../../../components/@cui/textField/SearchTextField";
 
 export interface HeaderColumnFilter {

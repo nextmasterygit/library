@@ -6,10 +6,12 @@ import {
   ActionStateTypes,
   NewActionMenu,
   NewDropDownMenu,
-} from "../tableInterface";
-import IconDropdown from "../../../components/@cui/dropDown/IconDropdown";
+} from "../../../../utils/interfaces/tableInterface";
+
 import { actionMenuContents, filterActionMenuCondition } from "./function";
-import Drawer from "../../../components/@cui/drawer/Drawer";
+
+import Drawer from "../../drawer/Drawer";
+import IconDropdown from "../../dropDown/IconDropdown";
 
 interface TableHeaderActionType {
   actionMenuList: ActionMenuListType;

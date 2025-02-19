@@ -1,4 +1,5 @@
 export {
+  // table
   ActionMenuList,
   ActionMenuListType,
   ActionStateTypes,
@@ -9,4 +10,6 @@ export {
   NewActionMenu,
   NewDropDownMenu,
   RenderType,
-} from "./components/table/tableInterface";
+} from "./utils/interfaces/tableInterface";
+
+export { ClassNameType, ChildrenType } from "./utils/interfaces/commonTypes";

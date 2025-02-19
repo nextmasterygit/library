@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { hasObjectValues } from "../../../../utils/helpers";
-import { ColumnType } from "../../../../components/table/tableInterface";
+import { ColumnType } from "../../../../props";
 // component
 import FromToDateFilter, {
   FromToDateFilterTypes,
