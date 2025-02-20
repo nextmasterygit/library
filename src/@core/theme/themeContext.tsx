@@ -14,9 +14,9 @@ import {
   themeType,
 } from "./interface";
 import { chooseColor } from "./chooseColor";
-export const ThemeContext = createContext<TypeThemeContextProps | undefined>(
-  undefined
-);
+export const ThemeContext = createContext<
+  TypeThemeContextProps | undefined
+>(undefined);
 // theme to mode, color to theme
 export const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -48,15 +48,18 @@ const ThemeProvider = ({
   defaultRadius = "0.5em",
   themeName = "mytheme",
 }: ProviderProps) => {
-  const [theme, setTheme] = useState<themeType>("light");
-  const [color, setColor] = useState<colorType>(defaultColor);
-  const [radius, setBorderRadius] = useState<borderRadiusType>(defaultRadius);
-  const [activeThemeClass, setActiveThemeClass] = useState<DOMTokenList | null>(
-    null
-  );
-  const [themeProperties, setThemeProperties] = useState<{
-    [key: string]: string;
-  }>({});
+  const [theme, setTheme] =
+    useState<themeType>("light");
+  const [color, setColor] =
+    useState<colorType>(defaultColor);
+  const [radius, setBorderRadius] =
+    useState<borderRadiusType>(defaultRadius);
+  const [activeThemeClass, setActiveThemeClass] =
+    useState<DOMTokenList | null>(null);
+  const [themeProperties, setThemeProperties] =
+    useState<{
+      [key: string]: string;
+    }>({});
   // use for window undefined // client side
   const [isClient, setIsClient] = useState(false);
 
@@ -66,30 +69,54 @@ const ThemeProvider = ({
 
   //LocalStorage to Save Setting
   const saveThemeSettings = useCallback(
-    (theme: themeType, color: colorType, borderRadius: borderRadiusType) => {
-      const themeSettings = { theme, color, borderRadius };
-      localStorage.setItem(themeName, JSON.stringify(themeSettings));
+    (
+      theme: themeType,
+      color: colorType,
+      borderRadius: borderRadiusType,
+    ) => {
+      const themeSettings = {
+        theme,
+        color,
+        borderRadius,
+      };
+      localStorage.setItem(
+        themeName,
+        JSON.stringify(themeSettings),
+      );
     },
-    [themeName]
+    [themeName],
   );
 
   const toggleTheme = useCallback(
-    (color: colorType, themeMode: themeType = theme) => {
+    (
+      color: colorType,
+      themeMode: themeType = theme,
+    ) => {
       if (isClient) {
         const root = document.documentElement;
         setColor(color);
         // console.log(color, themeMode);
 
-        const selectedTheme = chooseColor[color][themeMode];
+        const selectedTheme =
+          chooseColor[color][themeMode];
         setThemeProperties(selectedTheme);
-        saveThemeSettings(themeMode, color, radius);
-        for (const [key, value] of Object.entries(selectedTheme)) {
+        saveThemeSettings(
+          themeMode,
+          color,
+          radius,
+        );
+        for (const [key, value] of Object.entries(
+          selectedTheme,
+        )) {
           root.style.setProperty(key, value);
         }
-        root.style.setProperty("--radius", radius);
+        root.style.setProperty(
+          "--radius",
+          radius,
+        );
       }
     },
-    [isClient, radius, saveThemeSettings, theme]
+    [isClient, radius, saveThemeSettings, theme],
   );
 
   const themeClass = useCallback(
@@ -102,15 +129,17 @@ const ThemeProvider = ({
         toggleTheme(color, property);
       }
     },
-    [isClient, color, toggleTheme]
+    [isClient, color, toggleTheme],
   );
   // Fetch System Theme
 
   useEffect(() => {
     setIsClient(true);
-    const savedThemeSettings = localStorage.getItem(themeName);
+    const savedThemeSettings =
+      localStorage.getItem(themeName);
     if (savedThemeSettings) {
-      const { theme, color, borderRadius } = JSON.parse(savedThemeSettings);
+      const { theme, color, borderRadius } =
+        JSON.parse(savedThemeSettings);
       setTheme(theme);
       setColor(color);
       setBorderRadius(borderRadius);
@@ -118,10 +147,13 @@ const ThemeProvider = ({
     } else if (defaultTheme !== "system") {
       themeClass(defaultTheme);
     } else {
-      const prefersDarkScheme = window?.matchMedia(
-        "(prefers-color-scheme: dark)"
-      );
-      const sysTheme = prefersDarkScheme.matches ? "dark" : "light";
+      const prefersDarkScheme =
+        window?.matchMedia(
+          "(prefers-color-scheme: dark)",
+        );
+      const sysTheme = prefersDarkScheme.matches
+        ? "dark"
+        : "light";
       themeClass(sysTheme);
       setTheme(sysTheme);
     }
@@ -149,12 +181,19 @@ const ThemeProvider = ({
     (borderRadius: borderRadiusType) => {
       if (isClient) {
         const root = document.documentElement;
-        root.style.setProperty("--radius", borderRadius);
+        root.style.setProperty(
+          "--radius",
+          borderRadius,
+        );
         setBorderRadius(borderRadius);
-        saveThemeSettings(theme, color, borderRadius);
+        saveThemeSettings(
+          theme,
+          color,
+          borderRadius,
+        );
       }
     },
-    [color, isClient, saveThemeSettings, theme]
+    [color, isClient, saveThemeSettings, theme],
   );
 
   // values
@@ -174,7 +213,8 @@ const ThemeProvider = ({
       <div
         style={{
           minHeight: "100vh",
-          transition: "background 0.3s, color 0.3s",
+          transition:
+            "background 0.3s, color 0.3s",
         }}
       >
         {children}

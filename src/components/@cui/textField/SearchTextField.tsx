@@ -2,7 +2,8 @@ import TextField from "./TextField";
 import Iconify from "../../../@core/common/icon";
 
 import { CommonInputType } from "./TextField";
-interface SearchTextFieldProps extends CommonInputType {
+interface SearchTextFieldProps
+  extends CommonInputType {
   side?: "left" | "right";
   icon?: string;
 }
@@ -37,8 +38,16 @@ const SearchTextField = ({
         labelClass={labelClass}
         labelInside={labelInside}
         value={value}
-        prefix={side === "left" ? prefixSuffix : undefined}
-        suffix={side === "right" ? prefixSuffix : undefined}
+        prefix={
+          side === "left"
+            ? prefixSuffix
+            : undefined
+        }
+        suffix={
+          side === "right"
+            ? prefixSuffix
+            : undefined
+        }
         prefixClassName="p-0"
         inputSize={inputSize}
         className={className}

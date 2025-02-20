@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
-type ClassNameType = React.ComponentProps<"div">["className"];
+type ClassNameType =
+  React.ComponentProps<"div">["className"];
 
 export type PreSuffixType =
   | React.JSX.Element
@@ -33,19 +34,37 @@ const PrefixAndSuffix = ({
 }: PrefixAndSuffixType) => {
   useEffect(() => {
     const prefixW = prefix
-      ? (Number(prefixDimension.dimension?.width) + 2).toString()
+      ? (
+          Number(
+            prefixDimension.dimension?.width,
+          ) + 2
+        ).toString()
       : "";
     setPrefixWidth(prefixW);
-  }, [prefix, prefixDimension.dimension?.width, setPrefixWidth]);
+  }, [
+    prefix,
+    prefixDimension.dimension?.width,
+    setPrefixWidth,
+  ]);
   useEffect(() => {
     const suffixW = suffix
-      ? (Number(suffixDimension.dimension?.width) + 2).toString()
+      ? (
+          Number(
+            suffixDimension.dimension?.width,
+          ) + 2
+        ).toString()
       : "";
     setSuffixWidth(suffixW);
-  }, [setSuffixWidth, suffix, suffixDimension.dimension?.width]);
+  }, [
+    setSuffixWidth,
+    suffix,
+    suffixDimension.dimension?.width,
+  ]);
 
   // prefix or suffix wrapper
-  const prefixSuffixClass = (className?: ClassNameType) =>
+  const prefixSuffixClass = (
+    className?: ClassNameType,
+  ) =>
     twMerge(
       `h-full overflow-hidden absolute group-focus-within:border-primary ${
         textarea
@@ -53,7 +72,7 @@ const PrefixAndSuffix = ({
           : "top-1/2 transform -translate-y-1/2 flex items-center "
       } `,
       `
-                   ${className} `
+                   ${className} `,
     );
   return (
     <>
@@ -64,24 +83,30 @@ const PrefixAndSuffix = ({
             ref={prefixDimension.divRef}
             className={twMerge(
               `${typeof prefix !== "function" && "ps-1"} `,
-              ` ${prefixClassName}`
+              ` ${prefixClassName}`,
             )}
           >
             {" "}
-            {typeof prefix === "function" ? prefix() : prefix}
+            {typeof prefix === "function"
+              ? prefix()
+              : prefix}
           </span>
         </div>
       )}
       {suffix && (
-        <div className={prefixSuffixClass("right-0")}>
+        <div
+          className={prefixSuffixClass("right-0")}
+        >
           <span
             ref={suffixDimension.divRef}
             className={twMerge(
               `h-full ${typeof suffix !== "function" && "pr-1"}`,
-              ` ${suffixClassName}`
+              ` ${suffixClassName}`,
             )}
           >
-            {typeof suffix === "function" ? suffix() : suffix}
+            {typeof suffix === "function"
+              ? suffix()
+              : suffix}
           </span>
         </div>
       )}

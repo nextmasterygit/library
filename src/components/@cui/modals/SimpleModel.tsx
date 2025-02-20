@@ -1,5 +1,9 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, {
+  FC,
+  useEffect,
+  useState,
+} from "react";
 import useClickOutside from "../../../@core/customHooks/useClickOutside";
 import Button from "../button";
 import Card from "../../../@core/tag/Card";
@@ -42,13 +46,22 @@ const SimpleModal: FC<Props> = ({
       <p>Comming Soon</p>
       <div className="flex items-center">
         Modals:
-        <div onClick={() => setOpens(true)} className="ms-2 cursor-pointer">
+        <div
+          onClick={() => setOpens(true)}
+          className="ms-2 cursor-pointer"
+        >
           <Button>Open Modal</Button>
         </div>
-        <SimpleModal open={opens} close={setOpens}></SimpleModal>
+        <SimpleModal
+          open={opens}
+          close={setOpens}
+        ></SimpleModal>
       </div>
       <div className="w-full flex justify-end ">
-        <Button variant="secondary" onClick={() => close(false)}>
+        <Button
+          variant="secondary"
+          onClick={() => close(false)}
+        >
           Close
         </Button>
       </div>
@@ -59,9 +72,14 @@ const SimpleModal: FC<Props> = ({
       {open && (
         <div className="fixed inset-0 h-screen w-full flex items-center justify-center z-modal ">
           <div className="absolute inset-0 bg-black/60 z-10 backdrop-blur"></div>
-          <div ref={clickOutside ? divRef : null} className="w-full z-10 ">
+          <div
+            ref={clickOutside ? divRef : null}
+            className="w-full z-10 "
+          >
             <div className="w-full max-w-5xl mx-auto">
-              <div>{children ? children : sample()}</div>
+              <div>
+                {children ? children : sample()}
+              </div>
             </div>
           </div>
         </div>

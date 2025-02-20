@@ -1,5 +1,9 @@
 "use client";
-import React, { FC, ReactNode, useState } from "react";
+import React, {
+  FC,
+  ReactNode,
+  useState,
+} from "react";
 import { CustomLink } from "../../../@core/tag/CustomLink";
 import Iconify from "../../../@core/common/icon";
 import { usePathname } from "next/navigation";
@@ -32,19 +36,27 @@ const ItemComponent: FC<itemComponentsProps> = ({
     Container = "div";
   }
 
-  const isMatch = pathname === item.link || isChildMatch;
+  const isMatch =
+    pathname === item.link || isChildMatch;
 
   // Prevent child clicks from closing the parent
-  const handleItemClick = (e: React.MouseEvent) => {
+  const handleItemClick = (
+    e: React.MouseEvent,
+  ) => {
     onClick(item[idName]);
     e.stopPropagation();
   };
 
   return (
-    <Container href={item.link || "#"} className={`no-underline`}>
+    <Container
+      href={item.link || "#"}
+      className={`no-underline`}
+    >
       <div
         className={`flex items-center justify-between p-2 cursor-pointer ${
-          isOpen && !item.link ? "bg-effect-md" : ""
+          isOpen && !item.link
+            ? "bg-effect-md"
+            : ""
         }
           ${pathname === item.link ? "bg-effect-xl " : "bg-effect"}
              text-accent-foreground hover:bg-effect-xl
@@ -59,23 +71,29 @@ const ItemComponent: FC<itemComponentsProps> = ({
                   isOpen && !item.link
                     ? "text-primary/90"
                     : isMatch
-                    ? "text-primary"
-                    : "text-muted-foreground "
+                      ? "text-primary"
+                      : "text-muted-foreground "
                 }`}
             icon={
               item.icon
                 ? item.icon
                 : item.children
-                ? "material-symbols:circle-outline"
-                : "material-symbols:circle"
+                  ? "material-symbols:circle-outline"
+                  : "material-symbols:circle"
             }
           />
-          <p className="m-0 p-0">{item[idName]}</p>
+          <p className="m-0 p-0">
+            {item[idName]}
+          </p>
         </div>
         {item.children && (
           <Iconify
             fontSize={"1.5em"}
-            className={isOpen ? "iconPrimary" : "text-muted-foreground "}
+            className={
+              isOpen
+                ? "iconPrimary"
+                : "text-muted-foreground "
+            }
             icon={
               isOpen
                 ? "material-symbols:keyboard-arrow-down"
@@ -84,7 +102,9 @@ const ItemComponent: FC<itemComponentsProps> = ({
           />
         )}
       </div>
-      {isOpen && children && <div className="ml-2">{children}</div>}
+      {isOpen && children && (
+        <div className="ml-2">{children}</div>
+      )}
     </Container>
   );
 };
@@ -94,36 +114,45 @@ interface Props {
   idName?: string;
 }
 
-const ListDropdown: FC<Props> = ({ data, idName = "name" }) => {
-  const [openItems, setOpenItems] = useState<string[]>([]);
+const ListDropdown: FC<Props> = ({
+  data,
+  idName = "name",
+}) => {
+  const [openItems, setOpenItems] = useState<
+    string[]
+  >([]);
 
   const pathname = usePathname();
   const handleToggle = (name: string) => {
     setOpenItems((prevOpenItems) =>
       prevOpenItems.includes(name)
-        ? prevOpenItems.filter((itemStr) => itemStr !== name)
-        : [...prevOpenItems, name]
+        ? prevOpenItems.filter(
+            (itemStr) => itemStr !== name,
+          )
+        : [...prevOpenItems, name],
     );
   };
 
   const checkMatch = (
     item: ListDropdownDataType,
-    pathname: string | null
+    pathname: string | null,
   ): boolean => {
     if (item.link === pathname) {
       return true;
     }
     return item.children
-      ? item.children.some((child) => checkMatch(child, pathname))
+      ? item.children.some((child) =>
+          checkMatch(child, pathname),
+        )
       : false;
   };
   const renderItems = (
     items: ListDropdownDataType[],
-    idName: string
+    idName: string,
   ): ReactNode => {
     return items.map((item) => {
-      const isChildMatch = item.children?.some((child) =>
-        checkMatch(child, pathname)
+      const isChildMatch = item.children?.some(
+        (child) => checkMatch(child, pathname),
       );
 
       return (
@@ -131,7 +160,9 @@ const ListDropdown: FC<Props> = ({ data, idName = "name" }) => {
           key={item[idName]}
           item={item}
           idName={idName}
-          isOpen={openItems.includes(item[idName])}
+          isOpen={openItems.includes(
+            item[idName],
+          )}
           onClick={handleToggle}
           pathname={pathname}
           isChildMatch={isChildMatch || false} //for parent

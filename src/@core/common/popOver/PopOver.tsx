@@ -1,5 +1,9 @@
 "use client";
-import React, { FC, ReactNode, useEffect } from "react";
+import React, {
+  FC,
+  ReactNode,
+  useEffect,
+} from "react";
 import { usePopOver } from "../../customHooks/usePopOver";
 import Iconify from "../icon";
 
@@ -37,7 +41,11 @@ export const PopOver: FC<PopOverProps> = ({
     <div
       className="relative "
       ref={divRef}
-      onMouseLeave={() => (mouseTrigger && setOpen ? setOpen(false) : {})}
+      onMouseLeave={() =>
+        mouseTrigger && setOpen
+          ? setOpen(false)
+          : {}
+      }
     >
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
@@ -70,7 +78,9 @@ interface PopOverTriggerProps {
   mouseTrigger: boolean;
 }
 
-export const PopOverTrigger: FC<Partial<PopOverTriggerProps>> = ({
+export const PopOverTrigger: FC<
+  Partial<PopOverTriggerProps>
+> = ({
   children,
   open,
   setOpen,
@@ -114,7 +124,9 @@ export const PopOverTrigger: FC<Partial<PopOverTriggerProps>> = ({
     <div className="relative">
       <div
         onClick={handleTrigger}
-        onMouseEnter={mouseTrigger ? handleTrigger : undefined}
+        onMouseEnter={
+          mouseTrigger ? handleTrigger : undefined
+        }
       >
         {content()}
       </div>
@@ -136,7 +148,9 @@ interface PopOverContentProps {
   toggleOnContent?: boolean;
 }
 
-export const PopOverContent: FC<Partial<PopOverContentProps>> = ({
+export const PopOverContent: FC<
+  Partial<PopOverContentProps>
+> = ({
   children,
   open,
   setOpen,
@@ -151,15 +165,21 @@ export const PopOverContent: FC<Partial<PopOverContentProps>> = ({
   return open || layout === "fixed" ? (
     <div
       onMouseLeave={() =>
-        toggleOnContent && mouseTrigger && setOpen ? setOpen(false) : {}
+        toggleOnContent && mouseTrigger && setOpen
+          ? setOpen(false)
+          : {}
       }
       onClick={() =>
-        toggleOnContent && toggle ? setOpen && setOpen(false) : null
+        toggleOnContent && toggle
+          ? setOpen && setOpen(false)
+          : null
       }
     >
       <div
         className={` absolute min-w-max z-popOver  ${
-          style === "dropdown" ? "w-full" : `w-auto my-3 `
+          style === "dropdown"
+            ? "w-full"
+            : `w-auto my-3 `
         } ${dropdownLeftPositionClass}  ${dropdownPositionClass} `}
       >
         <div>{children}</div>

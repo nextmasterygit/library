@@ -1,12 +1,21 @@
 "use client";
 
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useState,
+} from "react";
 import { twMerge } from "tailwind-merge";
 import useDivDimensions from "../../../@core/customHooks/useDivDimensions";
-import PrefixAndSuffix, { PreSuffixType } from "./function/PrefixAndSuffix";
+import PrefixAndSuffix, {
+  PreSuffixType,
+} from "./function/PrefixAndSuffix";
 
-type ClassNameType = React.ComponentProps<"div">["className"];
-type InputElement = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | any>;
+type ClassNameType =
+  React.ComponentProps<"div">["className"];
+type InputElement = ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement | any
+>;
 export interface CommonInputType {
   id?: string;
   name?: string;
@@ -24,7 +33,9 @@ interface Props extends CommonInputType {
   required?: boolean;
   type?: string;
   onKeyDown?: (
-    e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: KeyboardEvent<
+      HTMLInputElement | HTMLTextAreaElement
+    >,
   ) => void;
   textarea?: boolean;
   style?: React.CSSProperties;
@@ -79,9 +90,12 @@ const TextField = ({
   const prefixDimension = useDivDimensions();
   const suffixDimension = useDivDimensions();
   // states
-  const [prefixWidth, setPrefixWidth] = useState<string>("");
-  const [suffixWidth, setSuffixWidth] = useState<string>("");
-  const [demoValue, setDemoValue] = useState<string>("");
+  const [prefixWidth, setPrefixWidth] =
+    useState<string>("");
+  const [suffixWidth, setSuffixWidth] =
+    useState<string>("");
+  const [demoValue, setDemoValue] =
+    useState<string>("");
 
   let InputSize = "py-2";
   if (inputSize === "0") {
@@ -98,12 +112,14 @@ const TextField = ({
   let inputProps = {
     id,
     name,
-    placeholder: labelInside && label ? label : placeholder,
+    placeholder:
+      labelInside && label ? label : placeholder,
     value: inputValue,
     defaultValue,
     onChange: onChange
       ? onChange
-      : (e: InputElement) => setDemoValue(e.target.value),
+      : (e: InputElement) =>
+          setDemoValue(e.target.value),
     onKeyDown,
     className,
     type: type == "tel" ? "number" : type,
@@ -117,22 +133,32 @@ const TextField = ({
 
   // register is react hook field
   if (register) {
-    inputProps = { ...inputProps, ...register(name) };
+    inputProps = {
+      ...inputProps,
+      ...register(name),
+    };
   }
   const mergedClassName = twMerge(
     `  relative overflow-hidden bordering group focus-within:border-primary select-none   ${
-      errors && name && errors[name] && "border !border-red-500"
+      errors &&
+      name &&
+      errors[name] &&
+      "border !border-red-500"
     } ${type === "tel" ? "input-textfield" : ""}`,
-    wrapperClassName
+    wrapperClassName,
   );
 
   const InputFieldClass = twMerge(
     ` outline-none !border-none active:border-none focus:border-none font-light  ${
-      labelInside ? (inputValue ? "pt-4" : "py-3") : ""
+      labelInside
+        ? inputValue
+          ? "pt-4"
+          : "py-3"
+        : ""
     }`,
 
     `
-    ${className}`
+    ${className}`,
   );
   const InputStype = {
     paddingLeft: `${prefixWidth}px`,
@@ -149,7 +175,11 @@ const TextField = ({
         </label>
       )}
 
-      <div className={twMerge(`${mergedClassName} ${InputSize}`)}>
+      <div
+        className={twMerge(
+          `${mergedClassName} ${InputSize}`,
+        )}
+      >
         {textarea ? (
           <textarea
             style={InputStype}
@@ -168,7 +198,7 @@ const TextField = ({
             htmlFor={id}
             className={twMerge(
               `absolute text-gray-500 top-0 left-1 transform  text-sm Transition`,
-              ` ${labelClass}`
+              ` ${labelClass}`,
             )}
           >
             {label}

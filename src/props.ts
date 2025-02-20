@@ -12,4 +12,7 @@ export {
   RenderType,
 } from "./utils/interfaces/tableInterface";
 
-export { ClassNameType, ChildrenType } from "./utils/interfaces/commonTypes";
+export {
+  ClassNameType,
+  ChildrenType,
+} from "./utils/interfaces/commonTypes";

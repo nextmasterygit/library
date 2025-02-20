@@ -16,27 +16,52 @@ export const buttonVariant = {
     "bg-green-600 text-primary-foreground hover:bg-green-500 Transition",
   warningClasses:
     "bg-amber-600 text-primary-foreground hover:bg-amber-600/90 Transition",
-  accentClass: "bg-background hover:bg-accent border border-border",
+  accentClass:
+    "bg-background hover:bg-accent border border-border",
 };
 
 // Utility function to get the merged classes for a button variant
 
 export const getButtonClasses = (
-  variant: "primary" | "secondary" | "danger" | "success" | "warning" | "accent"
+  variant:
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "success"
+    | "warning"
+    | "accent",
 ) => {
   switch (variant) {
     case "primary":
-      return twMerge(baseButtonClasses, buttonVariant.primaryClasses);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.primaryClasses,
+      );
     case "secondary":
-      return twMerge(baseButtonClasses, buttonVariant.secondaryClasses);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.secondaryClasses,
+      );
     case "danger":
-      return twMerge(baseButtonClasses, buttonVariant.dangerClasses);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.dangerClasses,
+      );
     case "success":
-      return twMerge(baseButtonClasses, buttonVariant.successClasses);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.successClasses,
+      );
     case "warning":
-      return twMerge(baseButtonClasses, buttonVariant.warningClasses);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.warningClasses,
+      );
     case "accent":
-      return twMerge(baseButtonClasses, buttonVariant.accentClass);
+      return twMerge(
+        baseButtonClasses,
+        buttonVariant.accentClass,
+      );
     default:
       return baseButtonClasses;
   }
@@ -49,7 +74,8 @@ type VariantType =
   | "success"
   | "warning"
   | "accent";
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: React.ComponentProps<"div">["className"];
   props?: React.ComponentPropsWithoutRef<"button">;
@@ -77,10 +103,7 @@ const Button = ({
     <div>
       <button
         disabled={props.disabled}
-        className={` ${twMerge(
-          `${getButtonClasses(variant)} ${sizeClassName}`,
-          `${className}`
-        )} `}
+        className={` ${twMerge(`${getButtonClasses(variant)} ${sizeClassName}`, `${className}`)} `}
         {...props}
       >
         {children}

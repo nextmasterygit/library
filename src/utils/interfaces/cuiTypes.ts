@@ -6,4 +6,5 @@ export interface ListDropdownDataType {
   children?: ListDropdownDataType[];
 }
 
-export interface CategoryDataType extends ListDropdownDataType {}
+export interface CategoryDataType
+  extends ListDropdownDataType {}

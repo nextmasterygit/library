@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
-type ClassNameType = React.ComponentProps<"div">["className"];
+import React, {
+  useEffect,
+  useState,
+} from "react";
+type ClassNameType =
+  React.ComponentProps<"div">["className"];
 
 interface Props {
   checked?: boolean;
   onChange?: (e: boolean) => void;
   className?: ClassNameType;
 }
-const Checkbox = ({ checked = false, onChange, className }: Props) => {
+const Checkbox = ({
+  checked = false,
+  onChange,
+  className,
+}: Props) => {
   const [check, setChecked] = useState<boolean>();
   useEffect(() => {
     setChecked(checked);

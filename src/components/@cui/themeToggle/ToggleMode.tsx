@@ -15,7 +15,8 @@ const ToggleMode: FC<Props> = ({
   darkIcon = "tabler:bulb-filled",
 }) => {
   const { toggleMode, theme } = useTheme();
-  const icon = theme === "light" ? lightIcon : darkIcon;
+  const icon =
+    theme === "light" ? lightIcon : darkIcon;
   return (
     <div className={`${className}`}>
       <Iconify

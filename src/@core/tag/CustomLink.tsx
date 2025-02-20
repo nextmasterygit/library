@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import Link from "next/link";
+import React, { ReactNode } from "react";
 
 export const CustomLink = ({
   href,
@@ -12,7 +12,7 @@ export const CustomLink = ({
   className?: React.ReactNode;
 }) => (
   <Link
-    href={href || '#'}
+    href={href || "#"}
     className={`no-underline text-foreground bg-transparent ${className}`}
   >
     {children}

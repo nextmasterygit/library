@@ -1,12 +1,15 @@
 import { useState, useCallback } from "react";
 
 // use only in tsx
-export const useDebounceCallback = <T extends (...args: any[]) => void>(
+export const useDebounceCallback = <
+  T extends (...args: any[]) => void,
+>(
   func: T,
-  delay: number
+  delay: number,
 ) => {
   // eslint-disable-next-line no-undef
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [timer, setTimer] =
+    useState<NodeJS.Timeout | null>(null);
   const debouncedCallback = useCallback(
     (...args: Parameters<T>) => {
       if (timer) clearTimeout(timer);
@@ -16,16 +19,18 @@ export const useDebounceCallback = <T extends (...args: any[]) => void>(
       setTimer(newTimer);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   return debouncedCallback;
 };
 
 // use anywhere in ts and tsx
-export const debounce = <T extends (...args: any[]) => void>(
+export const debounce = <
+  T extends (...args: any[]) => void,
+>(
   func: T,
-  delay: number
+  delay: number,
 ) => {
   let timeoutId: any;
 

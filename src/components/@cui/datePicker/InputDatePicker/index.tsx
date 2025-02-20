@@ -1,5 +1,9 @@
 "use client";
-import React, { FC, useId, useState } from "react";
+import React, {
+  FC,
+  useId,
+  useState,
+} from "react";
 
 import { format, isValid, parse } from "date-fns";
 import { Calendar } from "../../../ui/calendar";
@@ -14,9 +18,14 @@ import TextField from "../../textField/TextField";
 
 interface Props {
   selectedDate: Date | undefined;
-  setSelectedDate: (date: Date | undefined) => void;
+  setSelectedDate: (
+    date: Date | undefined,
+  ) => void;
 }
-const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
+const InputDatePicker: FC<Props> = ({
+  selectedDate,
+  setSelectedDate,
+}) => {
   // const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const inputId = useId();
   // Hold the month in state to control the calendar when the input changes
@@ -26,10 +35,14 @@ const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
 
   // Hold the input value in state
   const [inputValue, setInputValue] = useState(
-    selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""
+    selectedDate
+      ? format(selectedDate, "dd/MM/yyyy")
+      : "",
   );
 
-  const handleDayPickerSelect = (date: Date | undefined) => {
+  const handleDayPickerSelect = (
+    date: Date | undefined,
+  ) => {
     if (!date) {
       setInputValue("");
       setSelectedDate(undefined);
@@ -41,9 +54,14 @@ const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement
+    >,
   ) => {
-    const inputValue = e.target.value.replace(/[^\d]/g, ""); // Remove non-digit characters
+    const inputValue = e.target.value.replace(
+      /[^\d]/g,
+      "",
+    ); // Remove non-digit characters
     let formattedValue = "";
 
     if (inputValue.length <= 2) {
@@ -53,7 +71,7 @@ const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
     } else {
       formattedValue = `${inputValue.slice(0, 2)}-${inputValue.slice(
         2,
-        4
+        4,
       )}-${inputValue.slice(4, 8)}`;
     }
 
@@ -61,7 +79,11 @@ const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
 
     if (formattedValue.length === 10) {
       // Only parse if the date format is complete
-      const parsedDate = parse(formattedValue, "dd-MM-yyyy", new Date());
+      const parsedDate = parse(
+        formattedValue,
+        "dd-MM-yyyy",
+        new Date(),
+      );
 
       if (isValid(parsedDate)) {
         setSelectedDate(parsedDate);
@@ -100,8 +122,12 @@ const InputDatePicker: FC<Props> = ({ selectedDate, setSelectedDate }) => {
               selected={selectedDate}
               onSelect={handleDayPickerSelect}
               footer={
-                <p aria-live="assertive" aria-atomic="true">
-                  Selected: {selectedDate?.toDateString()}
+                <p
+                  aria-live="assertive"
+                  aria-atomic="true"
+                >
+                  Selected:{" "}
+                  {selectedDate?.toDateString()}
                 </p>
               }
             />

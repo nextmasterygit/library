@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import IconDropdown from "../../dropDown/IconDropdown";
-import { ColumnType, ColumnKey } from "../../../../props";
+import IconDropdown from '../../dropDown/IconDropdown';
+import { ColumnType, ColumnKey } from '../../../../props';
 
-import DragDropArray from "../../draggable/DragDropArray";
-import { ClassNameType } from "../../../../utils/interfaces/commonTypes";
+import DragDropArray from '../../draggable/DragDropArray';
+import { ClassNameType } from '../../../../utils/interfaces/commonTypes';
 
 export interface ColumnHideShowType {
   showOnlyColumns?: ColumnType[];
@@ -18,19 +18,19 @@ const ColumnHideShow = ({
   showOnlyColumns,
   setShowOnlyColumns,
   allColumns,
-  columnKey = "title",
+  columnKey = 'title',
 }: Props) => {
   const handleHideShows = (item: ColumnType) => {
     if (setShowOnlyColumns) {
       // Find the index of the column in `allColumns`
       const indexInAllColumns = allColumns.findIndex(
-        (v) => v[columnKey] === item[columnKey]
+        (v) => v[columnKey] === item[columnKey],
       );
 
       if (showOnlyColumns?.some((v) => v[columnKey] === item[columnKey])) {
         // Remove the item if it is already included
         setShowOnlyColumns((prev) =>
-          prev.filter((v) => v[columnKey] !== item[columnKey])
+          prev.filter((v) => v[columnKey] !== item[columnKey]),
         );
       } else {
         // Add the item if it is not included
@@ -62,7 +62,7 @@ const ColumnHideShow = ({
   return (
     <div>
       <IconDropdown
-        icon={"mingcute:column-fill"}
+        icon={'mingcute:column-fill'}
         style="dropdown"
         mouseTrigger={true}
         toggleOnContent={false}
@@ -74,7 +74,7 @@ const ColumnHideShow = ({
             <span key={index}>
               {ContentDiv({
                 column,
-                className: "bg-effect-2xl hover:bg-yellow-600",
+                className: 'bg-effect-2xl hover:bg-yellow-600',
               })}
             </span>
           )}
@@ -82,7 +82,7 @@ const ColumnHideShow = ({
         {allColumns
           .filter(
             (item) =>
-              !showOnlyColumns?.some((column) => column.title === item.title)
+              !showOnlyColumns?.some((column) => column.title === item.title),
           )
           ?.map((item, index) => (
             <span key={index}>{ContentDiv({ column: item })}</span>

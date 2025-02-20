@@ -1,4 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export interface dimensionProps {
   x: number;
@@ -13,15 +18,21 @@ export interface dimensionProps {
   offsetLeft: number;
 }
 type EventType = "resize" | "scroll";
-const useDivDimensions = (events?: EventType[]) => {
-  const [dimension, setDimension] = useState<dimensionProps | null>(null);
+const useDivDimensions = (
+  events?: EventType[],
+) => {
+  const [dimension, setDimension] =
+    useState<dimensionProps | null>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
   const updateDimensions = useCallback(() => {
     if (divRef.current) {
-      const rect = divRef.current.getBoundingClientRect();
-      const offsetWidth = divRef.current.offsetWidth;
-      const offsetLeft = divRef.current.offsetLeft;
+      const rect =
+        divRef.current.getBoundingClientRect();
+      const offsetWidth =
+        divRef.current.offsetWidth;
+      const offsetLeft =
+        divRef.current.offsetLeft;
       setDimension({
         x: rect.x,
         y: rect.y,
@@ -58,9 +69,11 @@ const useDivDimensions = (events?: EventType[]) => {
 
   useEffect(() => {
     // Initialize ResizeObserver
-    const resizeObserver = new ResizeObserver(() => {
-      updateDimensions(); // Trigger dimension update whenever the element size changes
-    });
+    const resizeObserver = new ResizeObserver(
+      () => {
+        updateDimensions(); // Trigger dimension update whenever the element size changes
+      },
+    );
 
     // Start observing the divRef element
     if (divRef.current) {
@@ -76,12 +89,18 @@ const useDivDimensions = (events?: EventType[]) => {
   useEffect(() => {
     if (events && events.length > 0) {
       events.forEach((event) => {
-        window.addEventListener(event, updateDimensions);
+        window.addEventListener(
+          event,
+          updateDimensions,
+        );
       });
 
       return () => {
         events.forEach((event) => {
-          window.removeEventListener(event, updateDimensions);
+          window.removeEventListener(
+            event,
+            updateDimensions,
+          );
         });
       };
     }

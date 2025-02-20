@@ -1,6 +1,10 @@
-'use client';
-import { useEffect, useState, useRef } from 'react';
-import useGetWindow from './useGetWindow';
+"use client";
+import {
+  useEffect,
+  useState,
+  useRef,
+} from "react";
+import useGetWindow from "./useGetWindow";
 interface Props {
   open: boolean;
   defaultWidth?: number;
@@ -10,9 +14,13 @@ interface returnProps {
   setIsOpen: (b: boolean) => void;
   toggleSidebar: () => void;
 }
-const useScreenState = ({ open, defaultWidth = 976 }: Props): returnProps => {
-  const { width } = useGetWindow(['resize']);
-  const [isOpen, setIsOpen] = useState<boolean>(open);
+const useScreenState = ({
+  open,
+  defaultWidth = 976,
+}: Props): returnProps => {
+  const { width } = useGetWindow(["resize"]);
+  const [isOpen, setIsOpen] =
+    useState<boolean>(open);
   const prevWidthRef = useRef(width);
 
   useEffect(() => {

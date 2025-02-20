@@ -1,10 +1,14 @@
 import React from "react";
-import IconDropdown, { ContentItem } from "../../dropDown/IconDropdown";
+import IconDropdown, {
+  ContentItem,
+} from "../../dropDown/IconDropdown";
 import { ColumnType } from "../../../../props";
 
 export interface ColumnFilterFieldsType {
   columnFilterField?: ColumnType[];
-  setColumnFilterFields?: React.Dispatch<React.SetStateAction<ColumnType[]>>;
+  setColumnFilterFields?: React.Dispatch<
+    React.SetStateAction<ColumnType[]>
+  >;
 }
 interface Props extends ColumnFilterFieldsType {
   columns: ColumnType[];
@@ -14,16 +18,27 @@ const ShowColumnFilter = ({
   columnFilterField,
   setColumnFilterFields,
 }: Props) => {
-  const handleShowsFilter = (item: ColumnType) => {
+  const handleShowsFilter = (
+    item: ColumnType,
+  ) => {
     if (setColumnFilterFields) {
-      if (columnFilterField?.some((v) => v.filterId === item.filterId)) {
+      if (
+        columnFilterField?.some(
+          (v) => v.filterId === item.filterId,
+        )
+      ) {
         // Remove the item if it is already included
         setColumnFilterFields((prev) =>
-          prev.filter((v) => v.filterId !== item.filterId)
+          prev.filter(
+            (v) => v.filterId !== item.filterId,
+          ),
         );
       } else {
         // Add the item if it is not included
-        setColumnFilterFields((prev) => [...prev, item]);
+        setColumnFilterFields((prev) => [
+          ...prev,
+          item,
+        ]);
       }
     }
   };
@@ -33,7 +48,9 @@ const ShowColumnFilter = ({
       title: column.title,
       click: () => handleShowsFilter(column),
       className: `  ${
-        columnFilterField?.some((v) => v.filterId === column.filterId)
+        columnFilterField?.some(
+          (v) => v.filterId === column.filterId,
+        )
           ? "bg-effect-2xl hover:bg-yellow-600"
           : ""
       }`,

@@ -16,10 +16,8 @@ const Iconify: FC<props> = ({
   ...rest
 }) => {
   const mergedClassName = twMerge(
-    `cursor-pointer text-foreground ${
-      hover && "duration-300 transition-all hover:text-ring"
-    }`,
-    className
+    `cursor-pointer text-foreground ${hover && "duration-300 transition-all hover:text-ring"}`,
+    className,
   );
   return (
     <Icon

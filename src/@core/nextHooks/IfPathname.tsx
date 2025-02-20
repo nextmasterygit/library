@@ -8,10 +8,20 @@ interface Props {
   className?: React.ComponentProps<"div">["className"];
   notMatchClass?: React.ComponentProps<"div">["className"];
 }
-const IfPathname = ({ path, children, className = "hidden" }: Props) => {
+const IfPathname = ({
+  path,
+  children,
+  className = "hidden",
+}: Props) => {
   const pathname = usePathname();
   const match = pathname !== path;
-  return <div className={`${match ? `${className}` : ``}`}>{children}</div>;
+  return (
+    <div
+      className={`${match ? `${className}` : ``}`}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default IfPathname;

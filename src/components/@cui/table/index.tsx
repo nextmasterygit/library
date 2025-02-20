@@ -1,10 +1,15 @@
 import React from "react";
 import TableMainBody from "./main/TableMainBody";
 import { TableMainBodyTypes } from "./main/TableMainBody";
-import Pagination, { PaginationType } from "./main/Pagination";
-import TableHeader, { HeaderType } from "./main/TableHeader";
+import Pagination, {
+  PaginationType,
+} from "./main/Pagination";
+import TableHeader, {
+  HeaderType,
+} from "./main/TableHeader";
 
-type ClassNameType = React.ComponentProps<"div">["className"];
+type ClassNameType =
+  React.ComponentProps<"div">["className"];
 
 interface TableProps extends TableMainBodyTypes {
   layoutClass?: ClassNameType;
@@ -34,7 +39,11 @@ const Table = ({
     <TableMainBody
       data={data}
       rowId={rowId}
-      columns={header.showOnlyColumns ? header.showOnlyColumns : columns}
+      columns={
+        header.showOnlyColumns
+          ? header.showOnlyColumns
+          : columns
+      }
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}
@@ -50,9 +59,13 @@ const Table = ({
         dates={header?.dates}
         columnsFilter={header?.columnsFilter}
         globalFilters={header?.globalFilters}
-        showColumnFilterFields={header?.showColumnFilterFields}
+        showColumnFilterFields={
+          header?.showColumnFilterFields
+        }
         showOnlyColumns={header?.showOnlyColumns}
-        setShowOnlyColumns={header?.setShowOnlyColumns}
+        setShowOnlyColumns={
+          header?.setShowOnlyColumns
+        }
         headerAction={header?.headerAction}
         columns={columns}
       />
@@ -60,7 +73,9 @@ const Table = ({
       {showPagination && pagination && (
         <Pagination
           currentPage={pagination?.currentPage}
-          setCurrentPage={pagination?.setCurrentPage}
+          setCurrentPage={
+            pagination?.setCurrentPage
+          }
           dataLimit={pagination?.dataLimit}
           setDataLimit={pagination?.setDataLimit}
           total={total}

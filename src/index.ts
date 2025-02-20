@@ -4,14 +4,20 @@ export { default as Iconify } from "./@core/common/icon";
 export { PopOver } from "./@core/common/popOver/PopOver";
 export { default as useCustomPathName } from "./@core/customHooks/getPathName";
 export { default as useClickOutside } from "./@core/customHooks/useClickOutside";
-export { debounce, useDebounceCallback } from "./@core/customHooks/useDebounce";
+export {
+  debounce,
+  useDebounceCallback,
+} from "./@core/customHooks/useDebounce";
 export { default as useDivDimensions } from "./@core/customHooks/useDivDimensions";
 export { default as useDivDimentionsMap } from "./@core/customHooks/useDivDimentionsMap";
 export { default as useGetWindow } from "./@core/customHooks/useGetWindow";
 export { useIdSelect } from "./@core/customHooks/useIdSelect";
 export { default as useIntersectionObserver } from "./@core/customHooks/useIntersectionObserver";
 export { useMultiSelect } from "./@core/customHooks/useMultiSelect";
-export { usePopOver, UsePopOverReturn } from "./@core/customHooks/usePopOver";
+export {
+  usePopOver,
+  UsePopOverReturn,
+} from "./@core/customHooks/usePopOver";
 export { default as useQuery } from "./@core/customHooks/useQuery";
 export { default as useScreenState } from "./@core/customHooks/useScreenState";
 //components

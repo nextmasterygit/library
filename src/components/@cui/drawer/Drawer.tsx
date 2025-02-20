@@ -1,5 +1,10 @@
 "use client";
-import React, { FC, ReactNode, useEffect, useState } from "react";
+import React, {
+  FC,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import useClickOutside from "../../../@core/customHooks/useClickOutside";
 import Iconify from "../../../@core/common/icon";
 
@@ -27,14 +32,16 @@ const Drawer: FC<Props> = ({
   };
 
   const drawerRef = useClickOutside(toggle);
-  const [drawerSize, setDrawerSize] = useState<string>();
+  const [drawerSize, setDrawerSize] =
+    useState<string>();
 
   // Update size dynamically if drawerSize changes
   useEffect(() => {
     setDrawerSize(size);
   }, [size]);
 
-  const positionClass = position === "left" ? "left-0 " : "right-0";
+  const positionClass =
+    position === "left" ? "left-0 " : "right-0";
   const widthClass: any = {
     "1": "md:w-1/4",
     "2": "md:w-2/4",
@@ -43,7 +50,9 @@ const Drawer: FC<Props> = ({
   };
 
   const getWidthClass = () => {
-    return drawerSize ? widthClass[drawerSize] : "md:w-1/2 lg:w-1/3 xl:w-1/4";
+    return drawerSize
+      ? widthClass[drawerSize]
+      : "md:w-1/2 lg:w-1/3 xl:w-1/4";
   };
   return (
     <div>
@@ -60,14 +69,19 @@ const Drawer: FC<Props> = ({
                   ref={drawerRef}
                   className={`h-full inset-0  bg-accent/90 text-card-foreground shadow shadow-border ${className}`}
                 >
-                  <div className="absolute top-0 right-0 p-2 " onClick={toggle}>
+                  <div
+                    className="absolute top-0 right-0 p-2 "
+                    onClick={toggle}
+                  >
                     <Iconify
                       icon="akar-icons:cross"
                       className="hover:text-red-600 text-muted-foreground Transition"
                     />
                   </div>
                   {title ? (
-                    <h1 className="text-center text-2xl p-2">{title}</h1>
+                    <h1 className="text-center text-2xl p-2">
+                      {title}
+                    </h1>
                   ) : null}
                   {children}
                 </div>

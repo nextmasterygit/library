@@ -1,4 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface UseInViewOptions {
   threshold?: number | number[];
@@ -9,7 +13,7 @@ interface UseInViewOptions {
 }
 
 const useIntersectionObserver = (
-  options: UseInViewOptions = {}
+  options: UseInViewOptions = {},
 ): {
   ref: React.RefObject<HTMLDivElement | null>;
   inView: boolean;
@@ -17,45 +21,56 @@ const useIntersectionObserver = (
   InView: any;
 } => {
   const [inView, setInView] = useState(false);
-  const [allProperties, setAllProperties] = useState({});
+  const [allProperties, setAllProperties] =
+    useState({});
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = ref.current;
 
-    if (!element || typeof window.IntersectionObserver === "undefined") {
+    if (
+      !element ||
+      typeof window.IntersectionObserver ===
+        "undefined"
+    ) {
       // Fallback if IntersectionObserver is not supported
       setInView(true); // Or false, depending on your default state
       return;
     }
-    const observerOptions: IntersectionObserverInit = {
-      root: options.root || null,
-      rootMargin: options.rootMargin || "0px",
-      threshold: options.threshold || 0,
-    };
+    const observerOptions: IntersectionObserverInit =
+      {
+        root: options.root || null,
+        rootMargin: options.rootMargin || "0px",
+        threshold: options.threshold || 0,
+      };
 
-    const observer = new IntersectionObserver((entries) => {
-      // console.log("Observer callback triggered", entries);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // console.log("Observer callback triggered", entries);
 
-      if (entries[0]) {
-        const isIntersecting = entries[0].isIntersecting;
-        const delay = options.delay ?? 100;
-        const getProperties = options.getProperties ?? false;
-        if (delay) {
-          setTimeout(() => {
+        if (entries[0]) {
+          const isIntersecting =
+            entries[0].isIntersecting;
+          const delay = options.delay ?? 100;
+          const getProperties =
+            options.getProperties ?? false;
+          if (delay) {
+            setTimeout(() => {
+              setInView(isIntersecting);
+              if (getProperties) {
+                setAllProperties(isIntersecting);
+              }
+            }, delay);
+          } else {
             setInView(isIntersecting);
             if (getProperties) {
               setAllProperties(isIntersecting);
             }
-          }, delay);
-        } else {
-          setInView(isIntersecting);
-          if (getProperties) {
-            setAllProperties(isIntersecting);
           }
         }
-      }
-    }, observerOptions);
+      },
+      observerOptions,
+    );
     if (element) {
       observer.observe(element);
     }
@@ -72,7 +87,10 @@ const useIntersectionObserver = (
     options.delay,
     options.getProperties,
   ]);
-  const InView = ({ children, onChange }: any) => {
+  const InView = ({
+    children,
+    onChange,
+  }: any) => {
     const { ref } = useIntersectionObserver();
     console.log(inView);
     return (

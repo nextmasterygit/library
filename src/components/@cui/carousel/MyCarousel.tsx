@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import "./style.css";
@@ -136,7 +140,8 @@ const Carousel = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   // eslint-disable-next-line no-undef
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef =
+    useRef<NodeJS.Timeout | null>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
@@ -150,44 +155,70 @@ const Carousel = () => {
   const startAutoSlide = () => {
     stopAutoSlide();
     intervalRef.current = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
+      setIndex(
+        (prev) => (prev + 1) % images.length,
+      );
     }, 3000);
   };
 
   const stopAutoSlide = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (intervalRef.current)
+      clearInterval(intervalRef.current);
   };
 
   useEffect(() => {
     if (sliderRef.current) {
       sliderRef.current.scrollTo({
-        left: index * sliderRef.current.clientWidth * 0.8,
+        left:
+          index *
+          sliderRef.current.clientWidth *
+          0.8,
         behavior: "smooth",
       });
     }
   }, [index]);
 
-  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleMouseDown = (
+    e: React.MouseEvent | React.TouchEvent,
+  ) => {
     stopAutoSlide();
     isDragging.current = true;
-    startX.current = "touches" in e ? e.touches[0].clientX : e.clientX;
-    scrollLeft.current = sliderRef.current!.scrollLeft;
+    startX.current =
+      "touches" in e
+        ? e.touches[0].clientX
+        : e.clientX;
+    scrollLeft.current =
+      sliderRef.current!.scrollLeft;
   };
 
-  const handleMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging.current || !sliderRef.current) return;
-    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+  const handleMouseMove = (
+    e: React.MouseEvent | React.TouchEvent,
+  ) => {
+    if (!isDragging.current || !sliderRef.current)
+      return;
+    const x =
+      "touches" in e
+        ? e.touches[0].clientX
+        : e.clientX;
     const walk = (x - startX.current) * 2; // Adjust sensitivity
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+    sliderRef.current.scrollLeft =
+      scrollLeft.current - walk;
     velocity.current = walk;
   };
 
   const handleMouseUp = () => {
     isDragging.current = false;
     if (sliderRef.current) {
-      const direction = velocity.current > 0 ? -1 : 1;
+      const direction =
+        velocity.current > 0 ? -1 : 1;
       setIndex((prev) =>
-        Math.max(0, Math.min(images.length - 1, prev + direction))
+        Math.max(
+          0,
+          Math.min(
+            images.length - 1,
+            prev + direction,
+          ),
+        ),
       );
     }
     startAutoSlide();
@@ -212,16 +243,23 @@ const Carousel = () => {
             className={clsx(
               "w-full min-w-[80%] flex justify-center items-center h-96 snap-center transition-transform duration-500 relative select-none",
               {
-                "opacity-100 scale-100 rotate-y-0 z-20": i === index,
+                "opacity-100 scale-100 rotate-y-0 z-20":
+                  i === index,
                 "opacity-70 scale-95 -rotate-y-10 translate-x-4 z-10":
-                  i === (index + 1) % images.length,
+                  i ===
+                  (index + 1) % images.length,
                 "opacity-70 scale-95 rotate-y-10 -translate-x-4 z-10":
-                  i === (index - 1 + images.length) % images.length,
+                  i ===
+                  (index - 1 + images.length) %
+                    images.length,
                 "opacity-40 scale-90 -rotate-y-15 translate-x-6 z-0":
-                  i === (index + 2) % images.length,
+                  i ===
+                  (index + 2) % images.length,
                 "opacity-40 scale-90 rotate-y-15 -translate-x-6 z-0":
-                  i === (index - 2 + images.length) % images.length,
-              }
+                  i ===
+                  (index - 2 + images.length) %
+                    images.length,
+              },
             )}
           >
             <Image

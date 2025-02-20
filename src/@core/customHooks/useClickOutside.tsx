@@ -1,18 +1,30 @@
-'use client';
-import { useEffect, useRef, useCallback } from 'react';
+"use client";
+import {
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 
 const useClickOutside = (toggle: () => void) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
-      if (divRef.current && !divRef.current.contains(event.target as Node)) {
-        if (toggle && typeof toggle === 'function') {
+      if (
+        divRef.current &&
+        !divRef.current.contains(
+          event.target as Node,
+        )
+      ) {
+        if (
+          toggle &&
+          typeof toggle === "function"
+        ) {
           toggle();
         }
       }
     },
-    [toggle]
+    [toggle],
   );
 
   useEffect(() => {
@@ -21,12 +33,18 @@ const useClickOutside = (toggle: () => void) => {
     };
 
     if (typeof window !== undefined) {
-      window.addEventListener('mousedown', handleClick);
+      window.addEventListener(
+        "mousedown",
+        handleClick,
+      );
     }
 
     return () => {
       if (typeof window !== undefined) {
-        window.removeEventListener('mousedown', handleClick);
+        window.removeEventListener(
+          "mousedown",
+          handleClick,
+        );
       }
     };
   }, [handleClickOutside]);

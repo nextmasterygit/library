@@ -8,7 +8,10 @@ import {
   NewDropDownMenu,
 } from "../../../../utils/interfaces/tableInterface";
 
-import { actionMenuContents, filterActionMenuCondition } from "./function";
+import {
+  actionMenuContents,
+  filterActionMenuCondition,
+} from "./function";
 
 import Drawer from "../../drawer/Drawer";
 import IconDropdown from "../../dropDown/IconDropdown";
@@ -16,44 +19,56 @@ import IconDropdown from "../../dropDown/IconDropdown";
 interface TableHeaderActionType {
   actionMenuList: ActionMenuListType;
   selectedRows: Record<string, unknown>[];
-  setSelectedRows: (rows: Record<string, any>[]) => void;
+  setSelectedRows: (
+    rows: Record<string, any>[],
+  ) => void;
   newActionMenu?: ({}) => NewActionMenu[];
 }
-const TableHeaderAction: FC<TableHeaderActionType> = ({
+const TableHeaderAction: FC<
+  TableHeaderActionType
+> = ({
   actionMenuList,
   selectedRows,
   setSelectedRows,
   newActionMenu,
 }) => {
-  const [drawerToggle, setDrawerToggle] = useState(false);
-  const [drawerContent, setDrawerContent] = useState<ActionStateTypes>({
-    Component: <></>,
-    title: "",
-    multiSelected: false,
-  });
+  const [drawerToggle, setDrawerToggle] =
+    useState(false);
+  const [drawerContent, setDrawerContent] =
+    useState<ActionStateTypes>({
+      Component: <></>,
+      title: "",
+      multiSelected: false,
+    });
 
   const toggleDrawer = (toggle?: boolean) => {
-    setDrawerToggle(toggle ? toggle : !drawerToggle);
+    setDrawerToggle(
+      toggle ? toggle : !drawerToggle,
+    );
   };
 
   const handleActionMenuContents: any = (
-    listCondition: ActionMenuList[] | undefined
+    listCondition: ActionMenuList[] | undefined,
   ) => {
     return actionMenuContents(
       listCondition,
       selectedRows,
       setSelectedRows,
       toggleDrawer,
-      setDrawerContent
+      setDrawerContent,
     );
   };
   //new Action Menu
   const newActionMenuRender = (
-    actionMenu: NewDropDownMenu[]
+    actionMenu: NewDropDownMenu[],
   ): JSX.Element[] | any => {
     return actionMenu.map((menu, index) => {
       const contents = menu.contents({});
-      const listCondition = filterActionMenuCondition(contents, selectedRows);
+      const listCondition =
+        filterActionMenuCondition(
+          contents,
+          selectedRows,
+        );
       return (
         listCondition &&
         listCondition.length > 0 && (
@@ -61,7 +76,9 @@ const TableHeaderAction: FC<TableHeaderActionType> = ({
             <IconDropdown
               mouseTrigger={true}
               icon={menu.icon}
-              contents={handleActionMenuContents(listCondition)}
+              contents={handleActionMenuContents(
+                listCondition,
+              )}
               style="dropdown"
             />
           </div>
@@ -72,11 +89,15 @@ const TableHeaderAction: FC<TableHeaderActionType> = ({
 
   // main action
   const mainActionMenu = actionMenuList({});
-  const menuListCondition = filterActionMenuCondition(
-    mainActionMenu,
-    selectedRows
-  );
-  const singleIconAction = (icon: string, action: ({}) => JSX.Element) => {
+  const menuListCondition =
+    filterActionMenuCondition(
+      mainActionMenu,
+      selectedRows,
+    );
+  const singleIconAction = (
+    icon: string,
+    action: ({}) => JSX.Element,
+  ) => {
     return (
       <div>
         <div>
@@ -91,26 +112,36 @@ const TableHeaderAction: FC<TableHeaderActionType> = ({
     <>
       <div>
         <div className="flex items-center relative">
-          {menuListCondition && menuListCondition.length > 0 && (
-            <IconDropdown
-              mouseTrigger={true}
-              icon="mdi:call-to-action"
-              contents={handleActionMenuContents(menuListCondition)}
-              style="dropdown"
-            />
-          )}
+          {menuListCondition &&
+            menuListCondition.length > 0 && (
+              <IconDropdown
+                mouseTrigger={true}
+                icon="mdi:call-to-action"
+                contents={handleActionMenuContents(
+                  menuListCondition,
+                )}
+                style="dropdown"
+              />
+            )}
           {newActionMenu &&
-            newActionMenu({}).map((item, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {item.action && item.icon
-                    ? singleIconAction(item.icon, item.action)
-                    : item.dropdownMenu
-                    ? newActionMenuRender(item.dropdownMenu)
-                    : null}
-                </React.Fragment>
-              );
-            })}
+            newActionMenu({}).map(
+              (item, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    {item.action && item.icon
+                      ? singleIconAction(
+                          item.icon,
+                          item.action,
+                        )
+                      : item.dropdownMenu
+                        ? newActionMenuRender(
+                            item.dropdownMenu,
+                          )
+                        : null}
+                  </React.Fragment>
+                );
+              },
+            )}
         </div>
       </div>
       <Drawer

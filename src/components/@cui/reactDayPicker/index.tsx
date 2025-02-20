@@ -2,7 +2,9 @@ import React from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import Iconify from "../../../@core/common/icon";
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<
+  typeof DayPicker
+>;
 import { twMerge } from "tailwind-merge";
 
 const ReactDayPicker = ({
@@ -16,9 +18,11 @@ const ReactDayPicker = ({
       showOutsideDays={showOutsideDays}
       className={twMerge("p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        months:
+          "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
+        caption:
+          "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center",
         // nav_button:
@@ -35,11 +39,13 @@ const ReactDayPicker = ({
         day_range_end: "day-range-end",
         day_selected:
           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        day_today: "bg-accent text-accent-foreground",
+        day_today:
+          "bg-accent text-accent-foreground",
 
         day_outside:
           "day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
-        day_disabled: "text-muted-foreground opacity-50",
+        day_disabled:
+          "text-muted-foreground opacity-50",
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
@@ -48,10 +54,16 @@ const ReactDayPicker = ({
       components={{
         // @ts-ignore
         IconLeft: ({ ...props }) => (
-          <Iconify icon="mdi:chevron-left" fontSize={"1.5em"} />
+          <Iconify
+            icon="mdi:chevron-left"
+            fontSize={"1.5em"}
+          />
         ),
         IconRight: ({ ...props }) => (
-          <Iconify icon="mdi:chevron-right" fontSize={"1.5em"} />
+          <Iconify
+            icon="mdi:chevron-right"
+            fontSize={"1.5em"}
+          />
         ),
       }}
       {...props}

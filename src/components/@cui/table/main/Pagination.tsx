@@ -70,11 +70,7 @@ const Pagination = ({
         />
       </div>
       <div className="flex items-center space-x-2 select-none">
-        <Button
-          variant="accent"
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        >
+        <Button variant="accent" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
           {"<<"}
         </Button>
         <Button
@@ -86,11 +82,7 @@ const Pagination = ({
           {"<"}
         </Button>
         {getPageNumbers().map((number) => (
-          <Button
-            key={number}
-            variant="accent"
-            onClick={() => handlePageChange(number)}
-          >
+          <Button key={number} variant="accent" onClick={() => handlePageChange(number)}>
             {number}
           </Button>
         ))}

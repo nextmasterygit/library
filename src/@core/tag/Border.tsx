@@ -7,7 +7,12 @@ interface Props {
   children: React.ReactNode;
   space?: "1" | "2";
 }
-const Border = ({ children, className, space, ...props }: Props) => {
+const Border = ({
+  children,
+  className,
+  space,
+  ...props
+}: Props) => {
   let spacing = "p-1";
   if (space === "1") {
     spacing = "p-4 py-10";
@@ -16,7 +21,7 @@ const Border = ({ children, className, space, ...props }: Props) => {
   }
   const mergedClassName = twMerge(
     `bg-card rounded-lg text-card-foreground border border-border ${spacing}`,
-    className
+    className,
   );
   return (
     <div className={mergedClassName} {...props}>

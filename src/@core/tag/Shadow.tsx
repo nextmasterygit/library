@@ -8,7 +8,13 @@ interface Props {
   space?: "0" | "1" | "2";
   style?: React.CSSProperties;
 }
-const Shadow = ({ children, className, space, style, ...props }: Props) => {
+const Shadow = ({
+  children,
+  className,
+  space,
+  style,
+  ...props
+}: Props) => {
   let spacing = "p-3";
   if (space === "0") {
     spacing = "!p-0 !py-0 !m-0";
@@ -19,10 +25,14 @@ const Shadow = ({ children, className, space, style, ...props }: Props) => {
   }
   const mergedClassName = twMerge(
     `backdrop-blur-md bg-accent/90 text-card-foreground shadow shadow-border ${spacing}`,
-    className
+    className,
   );
   return (
-    <div className={`${mergedClassName}`} style={style} {...props}>
+    <div
+      className={`${mergedClassName}`}
+      style={style}
+      {...props}
+    >
       {children}
     </div>
   );

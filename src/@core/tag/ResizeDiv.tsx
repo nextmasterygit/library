@@ -1,5 +1,10 @@
-'use client';
-import React, { FC, useEffect, useRef, useState } from 'react';
+"use client";
+import React, {
+  FC,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 // xs: "480px", // Extra small devices (phones)
 // sm: "640px", // Small devices (landscape phones)
@@ -8,8 +13,8 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 // xl: "1536px",
 interface Props {
   children: React.ReactNode;
-  props?: React.ComponentPropsWithoutRef<'div'>;
-  className?: React.ComponentProps<'div'>['className'];
+  props?: React.ComponentPropsWithoutRef<"div">;
+  className?: React.ComponentProps<"div">["className"];
   xs?: string;
   sm?: string;
   md?: string;
@@ -20,14 +25,16 @@ interface Props {
 const ResizeDiv: FC<Props> = ({
   children,
   className,
-  xs = 'grid-cols-1',
-  sm = 'grid-cols-2',
-  md = 'grid-cols-3',
-  lg = 'grid-cols-4',
+  xs = "grid-cols-1",
+  sm = "grid-cols-2",
+  md = "grid-cols-3",
+  lg = "grid-cols-4",
   xl,
   ...props
 }) => {
-  const [gridClass, setGridClass] = useState('grid-cols-1');
+  const [gridClass, setGridClass] = useState(
+    "grid-cols-1",
+  );
 
   const boxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -46,12 +53,14 @@ const ResizeDiv: FC<Props> = ({
         } else if (width >= 480) {
           setGridClass(xs);
         } else {
-          setGridClass('grid-cols-1');
+          setGridClass("grid-cols-1");
         }
       }
     };
 
-    const resizeObserver = new ResizeObserver(handleResize);
+    const resizeObserver = new ResizeObserver(
+      handleResize,
+    );
     if (boxRef.current) {
       resizeObserver.observe(boxRef.current);
     }
