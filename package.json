@@ -1,6 +1,6 @@
 {
   "name": "nextmastery",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A Custom Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -59,6 +59,7 @@
     "@eslint/js": "^9.20.0",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
+    "@types/web": "^0.0.204",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
     "eslint": "^9.20.1",
@@ -67,6 +68,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.15.0",
     "prettier": "^3.5.1",
     "typescript": "^5.7.3",

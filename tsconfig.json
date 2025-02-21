@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "types": ["node"],
+    "lib": ["dom", "esnext"],
 
     "moduleResolution": "Node",
     "strict": true,

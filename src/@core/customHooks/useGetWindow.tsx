@@ -1,10 +1,6 @@
-"use client";
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { debounce } from "./useDebounce";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import { debounce } from './useDebounce';
 interface returnProps {
   width: number;
   height: number;
@@ -12,19 +8,16 @@ interface returnProps {
   clientWindow: Window | undefined;
   condition: boolean;
 }
-type EventType = "resize" | "scroll";
+type EventType = 'resize' | 'scroll';
 const useGetWindow = (
   events: EventType[],
   conditionFunc?: (w: Window) => boolean,
 ): returnProps => {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
-  const [scrollY, setScrollY] =
-    useState<number>(0);
-  const [clientWindow, setClientWindow] =
-    useState<Window>();
-  const [condition, setCondition] =
-    useState(false);
+  const [scrollY, setScrollY] = useState<number>(0);
+  const [clientWindow, setClientWindow] = useState<Window>();
+  const [condition, setCondition] = useState(false);
 
   const handleEventRef = useRef(
     debounce(() => {
@@ -46,18 +39,12 @@ const useGetWindow = (
     const handleEvent = handleEventRef.current;
     if (events && events.length > 0) {
       events.forEach((event) => {
-        window.addEventListener(
-          event,
-          handleEvent,
-        );
+        window.addEventListener(event, handleEvent);
       });
       handleEvent();
       return () => {
         events.forEach((event) => {
-          window.removeEventListener(
-            event,
-            handleEvent,
-          );
+          window.removeEventListener(event, handleEvent);
         });
       };
     }

@@ -5,6 +5,7 @@ import pluginReact from 'eslint-plugin-react';
 import prettier from 'eslint-config-prettier';
 // import eslintPluginPrettier from "eslint-plugin-prettier";
 import importPlugin from 'eslint-plugin-import';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -15,7 +16,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  prettier, // Disables conflicting ESLint rules
+  // prettier, // Disables conflicting ESLint rules
 
   {
     settings: {
@@ -28,6 +29,7 @@ export default [
     plugins: {
       // prettier: eslintPluginPrettier,
       import: importPlugin, // Register import plugin
+      'react-hooks': reactHooks,
     },
     rules: {
       // Prettier integration
@@ -36,6 +38,8 @@ export default [
 
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
 
       // TypeScript rules
       '@typescript-eslint/no-explicit-any': 'off',
@@ -48,7 +52,8 @@ export default [
       'no-undef': 'error',
       'no-implicit-globals': 'error',
       'no-constant-condition': 'error',
-      'no-empty-pattern': 'warn',
+      'no-empty-pattern': 'off',
+      'no-constant-binary-expression': 'off',
 
       // Import rules
       'import/no-unresolved': 'warn',
