@@ -17,6 +17,7 @@ import HeaderFilterList, {
 import ColumnHideShow, {
   ColumnHideShowType,
 } from '../component/ColumnHideShow';
+import FullScreenTable from '../component/FullScreenTable';
 
 export interface HeaderType extends ColumnHideShowType {
   headerAction?: () => JSX.Element;
@@ -80,6 +81,7 @@ const TableHeader = ({
                   setShowOnlyColumns={setShowOnlyColumns}
                 />
               )}
+              <FullScreenTable />
             </div>
           </div>
           {headerAction && <div className="">{headerAction()}</div>}

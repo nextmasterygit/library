@@ -1,11 +1,8 @@
-import { FC } from "react";
-import IconDropdown, {
-  ContentItem,
-  ContentList,
-  Props,
-} from "./IconDropdown";
-import DragDropArray from "../draggable/DragDropArray";
-import { ClassNameType } from "../../../utils/interfaces/commonTypes";
+'use client';
+import { FC } from 'react';
+import IconDropdown, { ContentItem, ContentList, Props } from './IconDropdown';
+import DragDropArray from '../draggable/DragDropArray';
+import { ClassNameType } from '../../../utils/interfaces/commonTypes';
 
 interface DraggableDropdownType extends Props {
   contents: ContentItem[];
@@ -13,9 +10,7 @@ interface DraggableDropdownType extends Props {
   contentClass?: ClassNameType;
   setShowOnlyColumns: any;
 }
-const DraggableDropdown: FC<
-  DraggableDropdownType
-> = ({
+const DraggableDropdown: FC<DraggableDropdownType> = ({
   contents,
   contentClass,
   contentId,
@@ -27,9 +22,7 @@ const DraggableDropdown: FC<
       <DragDropArray
         setItems={setShowOnlyColumns}
         items={contents}
-        renderItem={(item) => (
-          <ContentList content={item} />
-        )}
+        renderItem={(item) => <ContentList content={item} />}
       />
     </IconDropdown>
   );

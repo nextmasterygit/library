@@ -17,7 +17,7 @@ const ToggleMode: FC<Props> = ({
   const { toggleMode, theme } = useTheme();
   const icon = theme === 'light' ? lightIcon : darkIcon;
   return (
-    <div className={`${className}`}>
+    <div className={`${className} select-none`}>
       <Iconify
         className="!text-primary"
         icon={icon}

@@ -1,4 +1,4 @@
-import React, { useState, FC, JSX } from 'react';
+import React, { useState, JSX } from 'react';
 import {
   ActionMenuList,
   ActionMenuListType,
@@ -18,12 +18,12 @@ interface TableHeaderActionType {
   setSelectedRows: (rows: Record<string, any>[]) => void;
   newActionMenu?: ({}) => NewActionMenu[];
 }
-const TableHeaderAction: FC<TableHeaderActionType> = ({
+const TableHeaderAction = ({
   actionMenuList,
   selectedRows,
   setSelectedRows,
   newActionMenu,
-}) => {
+}: TableHeaderActionType) => {
   const [drawerToggle, setDrawerToggle] = useState(false);
   const [drawerContent, setDrawerContent] = useState<ActionStateTypes>({
     Component: <></>,

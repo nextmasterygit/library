@@ -1,49 +1,26 @@
-import React, {
-  useCallback,
-  useState,
-} from "react";
-import useDivDimensions from "../../../../@core/customHooks/useDivDimensions";
-import { renderCell } from "../depends/renderCell";
-import { toggleRowSelection } from "../depends/utility";
-import Checkbox from "../../../../components/@cui/textField/Checkbox";
-import {
-  ColumnType,
-  ExpandingTableType,
-} from "../../../../props";
-import { twMerge } from "tailwind-merge";
+'use client';
+import React, { useCallback, useState } from 'react';
+import useDivDimensions from '../../../../@core/customHooks/useDivDimensions';
+import { renderCell } from '../depends/renderCell';
+import { toggleRowSelection } from '../depends/utility';
+import Checkbox from '../../../../components/@cui/textField/Checkbox';
+import { ColumnType, ExpandingTableType } from '../../../../props';
+import { twMerge } from 'tailwind-merge';
 
 import {
   ExtendableArrow,
   ExtentableContent,
   isExpandable,
-} from "../component/Expandable";
-
-type ClassNameType =
-  React.ComponentProps<"div">["className"];
-
-export interface TableClassesType {
-  tableWrapperClass?: ClassNameType;
-  tableClass?: ClassNameType;
-  tHeadClass?: ClassNameType;
-  tableInsideClass?: ClassNameType;
-  trHeadClass?: ClassNameType;
-  thHeadClass?: ClassNameType;
-  tBodyClass?: ClassNameType;
-  trBodyClass?: ClassNameType;
-  striped?: boolean;
-  stripedClass?: ClassNameType;
-  tdBodyClass?: ClassNameType;
-}
+} from '../component/Expandable';
+import { TableMainClassesType } from '../../../../utils/interfaces/tableInterface';
 
 export interface TableMainBodyTypes {
   data: Record<string, any>[];
   columns: ColumnType[];
   selectedRows?: Record<string, any>[];
-  setSelectedRows?: (
-    rows: Record<string, any>[],
-  ) => void;
-  rowId?: "id" | "_id" | string;
-  tableClasses?: TableClassesType;
+  setSelectedRows?: (rows: Record<string, any>[]) => void;
+  rowId?: 'id' | '_id' | string;
+  tableClasses?: TableMainClassesType;
   expandable?: boolean;
   multiExpandable?: boolean;
   expandingContent?: ExpandingTableType;
@@ -51,7 +28,7 @@ export interface TableMainBodyTypes {
 const TableMainBody = ({
   data,
   columns,
-  rowId = "id",
+  rowId = 'id',
   selectedRows,
   setSelectedRows = () => {},
   tableClasses,
@@ -72,18 +49,14 @@ const TableMainBody = ({
     striped,
     stripedClass,
   } = tableClasses || {};
-  const [selectAll, setSelectAll] =
-    useState(false);
+  const [selectAll, setSelectAll] = useState(false);
   // expendable states
 
-  const [
-    openExpandableRow,
-    setOpenExpandableRow,
-  ] = useState<number | number[]>([-1]);
+  const [openExpandableRow, setOpenExpandableRow] = useState<number | number[]>(
+    [-1],
+  );
   // ref width , this divRef is use for nested table width
-  const { dimension, divRef } = useDivDimensions([
-    "resize",
-  ]);
+  const { dimension, divRef } = useDivDimensions(['resize']);
 
   const toggle = useCallback(() => {
     if (selectAll) {
@@ -95,32 +68,14 @@ const TableMainBody = ({
   }, [selectAll, setSelectedRows, data]);
 
   const TableHead = () => (
-    <thead
-      className={twMerge(
-        `border-none `,
-        `${tHeadClass} `,
-      )}
-    >
-      <tr
-        className={twMerge(
-          `z-10  sticky top-0`,
-          ` ${trHeadClass} `,
-        )}
-      >
-        {(expandable || multiExpandable) && (
-          <th></th>
-        )}
+    <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
+      <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
+        {(expandable || multiExpandable) && <th></th>}
         {selectedRows && (
           <th
-            className={twMerge(
-              `   ${tableInsideClass} `,
-              ` ${thHeadClass} `,
-            )}
+            className={twMerge(`   ${tableInsideClass} `, ` ${thHeadClass} `)}
           >
-            <Checkbox
-              onChange={toggle}
-              checked={selectAll}
-            />
+            <Checkbox onChange={toggle} checked={selectAll} />
           </th>
         )}
         {columns &&
@@ -134,9 +89,7 @@ const TableMainBody = ({
                   `  ${thHeadClass}`,
                 )}
               >
-                <span className="font-bold">
-                  {item?.title}
-                </span>
+                <span className="font-bold">{item?.title}</span>
               </th>
             );
           })}
@@ -144,12 +97,7 @@ const TableMainBody = ({
     </thead>
   );
   const TableBody = () => (
-    <tbody
-      className={twMerge(
-        `text-sm font-medium`,
-        ` ${tBodyClass}`,
-      )}
-    >
+    <tbody className={twMerge(`text-sm font-medium`, ` ${tBodyClass}`)}>
       {data?.map((item, index: number) => {
         return (
           <React.Fragment key={index}>
@@ -173,22 +121,21 @@ const TableMainBody = ({
                 })}
 
               {/* for selection single td */}
-              {selectedRows &&
-                setSelectedRows && (
-                  <td
-                    className={twMerge(
-                      `${tableInsideClass} `,
-                      `  ${tdBodyClass} `,
-                    )}
-                  >
-                    {toggleRowSelection(
-                      item,
-                      rowId,
-                      selectedRows,
-                      setSelectedRows,
-                    )}
-                  </td>
-                )}
+              {selectedRows && setSelectedRows && (
+                <td
+                  className={twMerge(
+                    `${tableInsideClass} `,
+                    `  ${tdBodyClass} `,
+                  )}
+                >
+                  {toggleRowSelection(
+                    item,
+                    rowId,
+                    selectedRows,
+                    setSelectedRows,
+                  )}
+                </td>
+              )}
 
               {columns &&
                 columns.length &&
@@ -200,12 +147,7 @@ const TableMainBody = ({
                       ` ${tdBodyClass} ${column?.className} `,
                     )}
                   >
-                    {renderCell(
-                      item,
-                      column,
-                      index,
-                      data,
-                    )}
+                    {renderCell(item, column, index, data)}
                   </td>
                 ))}
             </tr>
@@ -220,12 +162,8 @@ const TableMainBody = ({
                 item={item}
                 columns={columns}
                 data={data}
-                expandingContent={
-                  expandingContent
-                }
-                expandableWidth={
-                  dimension?.offsetWidth
-                }
+                expandingContent={expandingContent}
+                expandableWidth={dimension?.offsetWidth}
               />
             )}
           </React.Fragment>
@@ -235,9 +173,7 @@ const TableMainBody = ({
   );
   return (
     <div>
-      <main
-        className={`relative ${tableWrapperClass}`}
-      >
+      <main className={`relative ${tableWrapperClass}`}>
         <div ref={divRef}>
           <table
             className={twMerge(

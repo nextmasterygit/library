@@ -1,31 +1,23 @@
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 
 interface Props {
   items?: any[];
-  setItems?: React.Dispatch<
-    React.SetStateAction<any[]>
-  >;
+  setItems?: React.Dispatch<React.SetStateAction<any[]>>;
   itemKey?: string;
-  renderItem?: (
-    item: any,
-    index: number,
-  ) => React.ReactNode;
+  renderItem?: (item: any, index: number) => React.ReactNode;
 }
 const DragDropArray: React.FC<Props> = ({
   items = [],
   setItems,
-  itemKey = "title",
+  itemKey = 'title',
   renderItem,
 }) => {
-  const [draggedIndex, setDraggedIndex] =
-    useState<number | null>(null); // Index of the dragged item
-  const [hoveredIndex, setHoveredIndex] =
-    useState<number | null>(null); // Index of the hovered item
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null); // Index of the dragged item
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Index of the hovered item
 
   // Handle the drag start event
-  const handleDragStart = (
-    index: number,
-  ): void => {
+  const handleDragStart = (index: number): void => {
     setDraggedIndex(index);
   };
 
@@ -46,14 +38,9 @@ const DragDropArray: React.FC<Props> = ({
       draggedIndex !== hoveredIndex
     ) {
       const updatedItems = [...items];
-      const draggedItem =
-        updatedItems[draggedIndex];
+      const draggedItem = updatedItems[draggedIndex];
       updatedItems.splice(draggedIndex, 1); // Remove the dragged item
-      updatedItems.splice(
-        hoveredIndex,
-        0,
-        draggedItem,
-      ); // Insert it at the new index
+      updatedItems.splice(hoveredIndex, 0, draggedItem); // Insert it at the new index
       if (setItems) {
         setItems(updatedItems);
       }
@@ -74,18 +61,12 @@ const DragDropArray: React.FC<Props> = ({
         <div
           key={index}
           draggable
-          onDragStart={() =>
-            handleDragStart(index)
-          }
-          onDragOver={(e) =>
-            handleDragOver(index, e)
-          }
+          onDragStart={() => handleDragStart(index)}
+          onDragOver={(e) => handleDragOver(index, e)}
           onDrop={handleDrop}
           onDragEnd={handleDragEnd}
         >
-          {renderItem
-            ? renderItem(item, index)
-            : item[itemKey]}
+          {renderItem ? renderItem(item, index) : item[itemKey]}
         </div>
       ))}
     </div>

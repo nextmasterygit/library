@@ -1,4 +1,5 @@
-import React, { JSX } from "react";
+import React, { JSX } from 'react';
+import { ClassNameType } from './commonTypes';
 
 // export interface MenuListAction {
 //   selectedRows: Record<string, any>[];
@@ -7,7 +8,7 @@ export interface ActionMenuList {
   title: string;
   icon: string;
   Component?: JSX.Element;
-  visible?: "selected" | "unselected";
+  visible?: 'selected' | 'unselected';
   multiSelected?: boolean;
   deleted?: boolean;
   action?: (props: Record<string, any>) => JSX.Element;
@@ -22,13 +23,13 @@ export interface ColumnType {
   title: string;
   accessor: string;
   filterId?: string;
-  type?: "date" | "currency";
-  currency?: "PKR" | "SAR" | "EUR" | "JPY" | "USD" | "INR";
-  format?: "en-PK" | "en-US" | "de-DE" | "ja-JP" | "en-IN";
+  type?: 'date' | 'currency';
+  currency?: 'PKR' | 'SAR' | 'EUR' | 'JPY' | 'USD' | 'INR';
+  format?: 'en-PK' | 'en-US' | 'de-DE' | 'ja-JP' | 'en-IN';
   render?: ({ row, index, data, cell }: RenderType) => void;
-  className?: React.ComponentProps<"div">["className"];
+  className?: React.ComponentProps<'div'>['className'];
 }
-export type ColumnKey = "title" | "accessor" | "filterId";
+export type ColumnKey = 'title' | 'accessor' | 'filterId';
 export interface ColumnFilterType {
   id: string;
   value: string;
@@ -53,3 +54,17 @@ export type ExpandingTableType = (props: {
   index: number;
 }) => React.ReactNode;
 export type ActionMenuListType = ({}) => ActionMenuList[];
+
+export interface TableMainClassesType {
+  tableWrapperClass?: ClassNameType;
+  tableClass?: ClassNameType;
+  tHeadClass?: ClassNameType;
+  tableInsideClass?: ClassNameType;
+  trHeadClass?: ClassNameType;
+  thHeadClass?: ClassNameType;
+  tBodyClass?: ClassNameType;
+  trBodyClass?: ClassNameType;
+  striped?: boolean;
+  stripedClass?: ClassNameType;
+  tdBodyClass?: ClassNameType;
+}
