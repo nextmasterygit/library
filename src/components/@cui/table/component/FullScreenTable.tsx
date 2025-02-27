@@ -1,12 +1,22 @@
 import Iconify from '../../../../@core/common/icon';
-const FullScreenTable = () => {
+export interface FullScreenTableType {
+  fullScreen?: boolean;
+  setFullScreen?: (b: boolean) => void;
+}
+const FullScreenTable = ({
+  fullScreen = false,
+  setFullScreen,
+}: FullScreenTableType) => {
   return (
-    <div>
-      <Iconify
-        icon={'ant-design:fullscreen-outlined'}
-        className="text-[2em] hover:scale-105 "
-      />
-    </div>
+    setFullScreen && (
+      <div>
+        <Iconify
+          onClick={() => setFullScreen(!fullScreen)}
+          icon={'ant-design:fullscreen-outlined'}
+          className="text-[2em] hover:scale-105 "
+        />
+      </div>
+    )
   );
 };
 

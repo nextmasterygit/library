@@ -1,17 +1,13 @@
-"use client";
-import React, {
-  FC,
-  ReactNode,
-  useEffect,
-} from "react";
-import { usePopOver } from "../../customHooks/usePopOver";
-import Iconify from "../icon";
+'use client';
+import React, { FC, ReactNode, useEffect } from 'react';
+import { usePopOver } from '../../customHooks/usePopOver';
+import Iconify from '../icon';
 
 interface PopOverProps {
   children: ReactNode;
   toggle?: boolean;
-  style?: "dropdown" | "popover";
-  layout?: "open" | "fixed" | "close";
+  style?: 'dropdown' | 'popover';
+  layout?: 'open' | 'fixed' | 'close';
   mouseTrigger?: boolean;
 }
 
@@ -31,7 +27,7 @@ export const PopOver: FC<PopOverProps> = ({
     shouldOpenUpwards,
   } = usePopOver();
   useEffect(() => {
-    if (layout === "open") {
+    if (layout === 'open') {
       setOpen(true);
     } else {
       setOpen(false);
@@ -41,11 +37,7 @@ export const PopOver: FC<PopOverProps> = ({
     <div
       className="relative "
       ref={divRef}
-      onMouseLeave={() =>
-        mouseTrigger && setOpen
-          ? setOpen(false)
-          : {}
-      }
+      onMouseLeave={() => (mouseTrigger && setOpen ? setOpen(false) : {})}
     >
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
@@ -78,9 +70,7 @@ interface PopOverTriggerProps {
   mouseTrigger: boolean;
 }
 
-export const PopOverTrigger: FC<
-  Partial<PopOverTriggerProps>
-> = ({
+export const PopOverTrigger: FC<Partial<PopOverTriggerProps>> = ({
   children,
   open,
   setOpen,
@@ -95,7 +85,7 @@ export const PopOverTrigger: FC<
   };
   const content = () => (
     <div className=" cursor-pointer ">
-      {style === "dropdown" ? null : (
+      {style === 'dropdown' ? null : (
         <>
           {open && !shouldOpenUpwards && (
             <div className=" absolute top-[80%] ">
@@ -124,9 +114,7 @@ export const PopOverTrigger: FC<
     <div className="relative">
       <div
         onClick={handleTrigger}
-        onMouseEnter={
-          mouseTrigger ? handleTrigger : undefined
-        }
+        onMouseEnter={mouseTrigger ? handleTrigger : undefined}
       >
         {content()}
       </div>
@@ -148,9 +136,7 @@ interface PopOverContentProps {
   toggleOnContent?: boolean;
 }
 
-export const PopOverContent: FC<
-  Partial<PopOverContentProps>
-> = ({
+export const PopOverContent: FC<Partial<PopOverContentProps>> = ({
   children,
   open,
   setOpen,
@@ -162,24 +148,18 @@ export const PopOverContent: FC<
   mouseTrigger,
   toggleOnContent = true,
 }) => {
-  return open || layout === "fixed" ? (
+  return open || layout === 'fixed' ? (
     <div
       onMouseLeave={() =>
-        toggleOnContent && mouseTrigger && setOpen
-          ? setOpen(false)
-          : {}
+        toggleOnContent && mouseTrigger && setOpen ? setOpen(false) : {}
       }
       onClick={() =>
-        toggleOnContent && toggle
-          ? setOpen && setOpen(false)
-          : null
+        toggleOnContent && toggle ? setOpen && setOpen(false) : null
       }
     >
       <div
         className={` absolute min-w-max z-popOver  ${
-          style === "dropdown"
-            ? "w-full"
-            : `w-auto my-3 `
+          style === 'dropdown' ? 'w-full' : `w-auto my-3 `
         } ${dropdownLeftPositionClass}  ${dropdownPositionClass} `}
       >
         <div>{children}</div>

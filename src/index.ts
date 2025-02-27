@@ -15,6 +15,7 @@ export { usePopOver, UsePopOverReturn } from './@core/customHooks/usePopOver';
 export { default as useQuery } from './@core/customHooks/useQuery';
 export { default as useScreenState } from './@core/customHooks/useScreenState';
 export { default as ThemeProvider } from './@core/theme/themeContext';
+export { default as MasteryProvider } from './@core/provider/MasteryProvider';
 //components
 export {
   default as Button,

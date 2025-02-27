@@ -17,15 +17,17 @@ import HeaderFilterList, {
 import ColumnHideShow, {
   ColumnHideShowType,
 } from '../component/ColumnHideShow';
-import FullScreenTable from '../component/FullScreenTable';
+import FullScreenTable, {
+  FullScreenTableType,
+} from '../component/FullScreenTable';
 
 export interface HeaderType extends ColumnHideShowType {
   headerAction?: () => JSX.Element;
   dates: FromToDateFilterTypes;
-
   globalFilters?: GlobalFilterType;
   columnsFilter?: HeaderColumnFilter;
   showColumnFilterFields?: ColumnFilterFieldsType;
+  showFullScreen?: FullScreenTableType;
 }
 
 interface Props extends HeaderType {
@@ -40,6 +42,7 @@ const TableHeader = ({
   showColumnFilterFields,
   showOnlyColumns,
   setShowOnlyColumns,
+  showFullScreen,
 }: Props) => {
   const { fromDate, setFromDate, toDate, setToDate } = dates || {};
   const { columnFilter, setColumnFilter } = columnsFilter || {};
@@ -81,7 +84,12 @@ const TableHeader = ({
                   setShowOnlyColumns={setShowOnlyColumns}
                 />
               )}
-              <FullScreenTable />
+              {showFullScreen && (
+                <FullScreenTable
+                  fullScreen={showFullScreen?.fullScreen}
+                  setFullScreen={showFullScreen?.setFullScreen}
+                />
+              )}
             </div>
           </div>
           {headerAction && <div className="">{headerAction()}</div>}

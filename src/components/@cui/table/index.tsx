@@ -1,15 +1,15 @@
-import React from "react";
-import TableMainBody from "./main/TableMainBody";
-import { TableMainBodyTypes } from "./main/TableMainBody";
-import Pagination, {
-  PaginationType,
-} from "./main/Pagination";
-import TableHeader, {
-  HeaderType,
-} from "./main/TableHeader";
+'use client';
+import React, { useState } from 'react';
+import TableMainBody from './main/TableMainBody';
+import { TableMainBodyTypes } from './main/TableMainBody';
+import Pagination, { PaginationType } from './main/Pagination';
+import TableHeader, { HeaderType } from './main/TableHeader';
+import { twMerge } from 'tailwind-merge';
+import clsx from 'clsx';
+import ReactDOM from 'react-dom';
+import FullScreenDom from '../../../@core/tag/FullScreenDom';
 
-type ClassNameType =
-  React.ComponentProps<"div">["className"];
+type ClassNameType = React.ComponentProps<'div'>['className'];
 
 interface TableProps extends TableMainBodyTypes {
   layoutClass?: ClassNameType;
@@ -21,10 +21,11 @@ interface TableProps extends TableMainBodyTypes {
 const Table = ({
   total,
   columns,
-  layoutClass = "p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2",
+  layoutClass,
   header,
   pagination,
   showPagination = false,
+
   //tableMain
   data,
   rowId,
@@ -39,11 +40,7 @@ const Table = ({
     <TableMainBody
       data={data}
       rowId={rowId}
-      columns={
-        header.showOnlyColumns
-          ? header.showOnlyColumns
-          : columns
-      }
+      columns={header.showOnlyColumns ? header.showOnlyColumns : columns}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}
@@ -52,36 +49,48 @@ const Table = ({
       expandingContent={expandingContent}
     />
   );
-
+  const fullScreen = header?.showFullScreen?.fullScreen ?? false;
   return (
-    <div className={`${layoutClass}`}>
-      <TableHeader
-        dates={header?.dates}
-        columnsFilter={header?.columnsFilter}
-        globalFilters={header?.globalFilters}
-        showColumnFilterFields={
-          header?.showColumnFilterFields
-        }
-        showOnlyColumns={header?.showOnlyColumns}
-        setShowOnlyColumns={
-          header?.setShowOnlyColumns
-        }
-        headerAction={header?.headerAction}
-        columns={columns}
-      />
-      {tableMain()}
-      {showPagination && pagination && (
-        <Pagination
-          currentPage={pagination?.currentPage}
-          setCurrentPage={
-            pagination?.setCurrentPage
-          }
-          dataLimit={pagination?.dataLimit}
-          setDataLimit={pagination?.setDataLimit}
-          total={total}
+    <FullScreenDom open={fullScreen}>
+      <div
+        className={twMerge(
+          clsx(
+            'p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2',
+            {
+              'fixed inset-0 bg-background top-0 left-0 w-full min-h-screen h-full z-modal':
+                fullScreen,
+            },
+            layoutClass,
+          ),
+        )}
+      >
+        {/* {fullScreen && (
+        <div className="absolute inset-0 bg-background/90 "></div> // Background overlay with z-index
+      )} */}
+
+        <TableHeader
+          dates={header?.dates}
+          columnsFilter={header?.columnsFilter}
+          globalFilters={header?.globalFilters}
+          showColumnFilterFields={header?.showColumnFilterFields}
+          showFullScreen={header.showFullScreen}
+          showOnlyColumns={header?.showOnlyColumns}
+          setShowOnlyColumns={header?.setShowOnlyColumns}
+          headerAction={header?.headerAction}
+          columns={columns}
         />
-      )}
-    </div>
+        {tableMain()}
+        {showPagination && pagination && (
+          <Pagination
+            currentPage={pagination?.currentPage}
+            setCurrentPage={pagination?.setCurrentPage}
+            dataLimit={pagination?.dataLimit}
+            setDataLimit={pagination?.setDataLimit}
+            total={total}
+          />
+        )}
+      </div>
+    </FullScreenDom>
   );
 };
 
