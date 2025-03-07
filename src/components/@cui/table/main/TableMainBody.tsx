@@ -70,10 +70,20 @@ const TableMainBody = ({
   const TableHead = () => (
     <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
       <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
-        {(expandable || multiExpandable) && <th></th>}
+        {(expandable || multiExpandable) && (
+          <th
+            className={twMerge(
+              `   ${tableInsideClass} select-none`,
+              ` ${thHeadClass} w-10`,
+            )}
+          ></th>
+        )}
         {selectedRows && (
           <th
-            className={twMerge(`   ${tableInsideClass} `, ` ${thHeadClass} `)}
+            className={twMerge(
+              `   ${tableInsideClass} `,
+              ` ${thHeadClass} w-10`,
+            )}
           >
             <Checkbox onChange={toggle} checked={selectAll} />
           </th>
@@ -173,11 +183,11 @@ const TableMainBody = ({
   );
   return (
     <div>
-      <main className={`relative ${tableWrapperClass}`}>
-        <div ref={divRef}>
+      <main className={`relative ${tableWrapperClass} `}>
+        <div ref={divRef} className="select-none">
           <table
             className={twMerge(
-              `m-0 p-0 table-auto relative border-spacing-0  border-separate  min-w-full `,
+              `m-0 p-0 table-auto border-spacing-0 select-text border-separate  min-w-full `,
               ` ${tableClass} `,
             )}
           >

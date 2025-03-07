@@ -14,7 +14,7 @@ export interface dimensionProps {
   offsetLeft: number;
 }
 type EventType = 'resize' | 'scroll';
-const useDivDimensions = (events?: EventType[]) => {
+const useDivDimensions = (events?: EventType[] | null, dependency?: any) => {
   const [dimension, setDimension] = useState<dimensionProps | null>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -59,20 +59,21 @@ const useDivDimensions = (events?: EventType[]) => {
 
   useEffect(() => {
     // Initialize ResizeObserver
-    const resizeObserver = new ResizeObserver(() => {
-      updateDimensions(); // Trigger dimension update whenever the element size changes
-    });
+    // const resizeObserver = new ResizeObserver(() => {
+    //   updateDimensions(); // Trigger dimension update whenever the element size changes
+    // });
+    const element = divRef.current;
+    if (!element) return;
+    updateDimensions(); // ✅ Update Immediately
 
-    // Start observing the divRef element
-    if (divRef.current) {
-      resizeObserver.observe(divRef.current);
-    }
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    resizeObserver.observe(element);
 
     // Clean up observer on unmount
     return () => {
       resizeObserver.disconnect();
     };
-  }, [updateDimensions]);
+  }, [updateDimensions, dependency]);
 
   useEffect(() => {
     if (events && events.length > 0) {

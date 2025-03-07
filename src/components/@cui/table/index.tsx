@@ -1,13 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import TableMainBody from './main/TableMainBody';
 import { TableMainBodyTypes } from './main/TableMainBody';
 import Pagination, { PaginationType } from './main/Pagination';
 import TableHeader, { HeaderType } from './main/TableHeader';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
-import ReactDOM from 'react-dom';
 import FullScreenDom from '../../../@core/tag/FullScreenDom';
+import useDivDimensions from '../../../@core/customHooks/useDivDimensions';
+import useDivSize from '../../../@core/customHooks/useDivSize';
 
 type ClassNameType = React.ComponentProps<'div'>['className'];
 
@@ -36,6 +37,10 @@ const Table = ({
   multiExpandable,
   expandingContent,
 }: TableProps) => {
+  const fullScreen = header?.showFullScreen?.fullScreen ?? false;
+  const { size: headerDimension, divRef: headerRef } = useDivSize(fullScreen);
+  const { size: footerDimension, divRef: footerRef } = useDivSize(fullScreen);
+
   const tableMain = () => (
     <TableMainBody
       data={data}
@@ -49,45 +54,58 @@ const Table = ({
       expandingContent={expandingContent}
     />
   );
-  const fullScreen = header?.showFullScreen?.fullScreen ?? false;
+  console.log(headerDimension);
   return (
-    <FullScreenDom open={fullScreen}>
+    <FullScreenDom open={fullScreen} className="overflow-hidden">
       <div
         className={twMerge(
           clsx(
-            'p-4 py-10 shadow-2xl shadow-border border border-border rounded-[20px] space-y-2',
-            {
-              'fixed inset-0 bg-background top-0 left-0 w-full min-h-screen h-full z-modal':
-                fullScreen,
-            },
+            { 'p-4 py-10': !fullScreen }, // Apply when not fullScreen
+            'shadow-2xl shadow-border border border-border rounded-[20px] space-y-2',
+            { 'p-0 m-0 space-y-0': fullScreen }, // Apply when fullScreen
             layoutClass,
           ),
         )}
       >
-        {/* {fullScreen && (
-        <div className="absolute inset-0 bg-background/90 "></div> // Background overlay with z-index
-      )} */}
-
-        <TableHeader
-          dates={header?.dates}
-          columnsFilter={header?.columnsFilter}
-          globalFilters={header?.globalFilters}
-          showColumnFilterFields={header?.showColumnFilterFields}
-          showFullScreen={header.showFullScreen}
-          showOnlyColumns={header?.showOnlyColumns}
-          setShowOnlyColumns={header?.setShowOnlyColumns}
-          headerAction={header?.headerAction}
-          columns={columns}
-        />
-        {tableMain()}
-        {showPagination && pagination && (
-          <Pagination
-            currentPage={pagination?.currentPage}
-            setCurrentPage={pagination?.setCurrentPage}
-            dataLimit={pagination?.dataLimit}
-            setDataLimit={pagination?.setDataLimit}
-            total={total}
+        <div ref={headerRef}>
+          <TableHeader
+            dates={header?.dates}
+            columnsFilter={header?.columnsFilter}
+            globalFilters={header?.globalFilters}
+            showColumnFilterFields={header?.showColumnFilterFields}
+            showFullScreen={header.showFullScreen}
+            showOnlyColumns={header?.showOnlyColumns}
+            setShowOnlyColumns={header?.setShowOnlyColumns}
+            headerAction={header?.headerAction}
+            columns={columns}
           />
+        </div>
+        <div
+          style={
+            fullScreen && headerDimension && footerDimension
+              ? {
+                  height: `calc(100vh - ${headerDimension.height + footerDimension.height}px)`,
+                  overflow: 'auto',
+                }
+              : { overflow: 'auto' }
+          }
+        >
+          {tableMain()}
+        </div>
+
+        {showPagination && pagination && (
+          <div
+            style={{ height: footerDimension?.height || 'auto' }}
+            ref={footerRef}
+          >
+            <Pagination
+              currentPage={pagination?.currentPage}
+              setCurrentPage={pagination?.setCurrentPage}
+              dataLimit={pagination?.dataLimit}
+              setDataLimit={pagination?.setDataLimit}
+              total={total}
+            />
+          </div>
         )}
       </div>
     </FullScreenDom>

@@ -1,5 +1,5 @@
-import Button from "../../button";
-import IconDropdown from "../../dropDown/IconDropdown";
+import Button from '../../button';
+import IconDropdown from '../../dropDown/IconDropdown';
 export interface PaginationType {
   currentPage: number;
   setCurrentPage: (page: number) => void;
@@ -51,7 +51,7 @@ const Pagination = ({
     return pages;
   };
   return (
-    <div className="w-full sticky  right-0 bottom-0 z-10 flex justify-end items-center  px-4 space-x-4">
+    <div className="w-full sticky bg-background right-0 bottom-0 z-10 flex justify-end items-center  ">
       <div className="flex space-x-2 items-center">
         <span className="font-bold select-none">Total: {total}</span>
         <IconDropdown
@@ -70,8 +70,12 @@ const Pagination = ({
         />
       </div>
       <div className="flex items-center space-x-2 select-none">
-        <Button variant="accent" onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-          {"<<"}
+        <Button
+          variant="accent"
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
+        >
+          {'<<'}
         </Button>
         <Button
           variant="accent"
@@ -79,10 +83,14 @@ const Pagination = ({
           disabled={currentPage === 1}
           className="  "
         >
-          {"<"}
+          {'<'}
         </Button>
         {getPageNumbers().map((number) => (
-          <Button key={number} variant="accent" onClick={() => handlePageChange(number)}>
+          <Button
+            key={number}
+            variant="accent"
+            onClick={() => handlePageChange(number)}
+          >
             {number}
           </Button>
         ))}
@@ -93,14 +101,14 @@ const Pagination = ({
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === pageCount}
         >
-          {">"}
+          {'>'}
         </Button>
         <Button
           variant="accent"
           onClick={() => handlePageChange(pageCount)}
           disabled={currentPage === pageCount}
         >
-          {">>"}
+          {'>>'}
         </Button>
       </div>
     </div>

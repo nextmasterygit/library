@@ -52,54 +52,52 @@ const TableHeader = ({
 
   return (
     <div>
-      <div className="">
-        <div className="flex flex-col font-semibold">
-          <div className="flex items-center justify-between">
-            {hasObjectValues(dates) && setFromDate && setToDate && (
-              <FromToDateFilter
-                fromDate={fromDate}
-                setFromDate={setFromDate}
-                toDate={toDate}
-                setToDate={setToDate}
+      <div className=" flex flex-col font-semibold">
+        <div className="flex items-center justify-between">
+          {hasObjectValues(dates) && setFromDate && setToDate && (
+            <FromToDateFilter
+              fromDate={fromDate}
+              setFromDate={setFromDate}
+              toDate={toDate}
+              setToDate={setToDate}
+            />
+          )}
+          <div className="flex items-center space-x-2">
+            {setGlobalFilter && (
+              <GlobalFilter
+                setGlobalFilter={setGlobalFilter}
+                globalFilter={globalFilter}
               />
             )}
-            <div className="flex items-center space-x-2">
-              {setGlobalFilter && (
-                <GlobalFilter
-                  setGlobalFilter={setGlobalFilter}
-                  globalFilter={globalFilter}
-                />
-              )}
-              {setColumnFilterFields && (
-                <ShowColumnFilter
-                  columns={showOnlyColumns ?? columns}
-                  columnFilterField={columnFilterField}
-                  setColumnFilterFields={setColumnFilterFields}
-                />
-              )}
-              {setShowOnlyColumns && (
-                <ColumnHideShow
-                  allColumns={columns}
-                  showOnlyColumns={showOnlyColumns}
-                  setShowOnlyColumns={setShowOnlyColumns}
-                />
-              )}
-              {showFullScreen && (
-                <FullScreenTable
-                  fullScreen={showFullScreen?.fullScreen}
-                  setFullScreen={showFullScreen?.setFullScreen}
-                />
-              )}
-            </div>
+            {setColumnFilterFields && (
+              <ShowColumnFilter
+                columns={showOnlyColumns ?? columns}
+                columnFilterField={columnFilterField}
+                setColumnFilterFields={setColumnFilterFields}
+              />
+            )}
+            {setShowOnlyColumns && (
+              <ColumnHideShow
+                allColumns={columns}
+                showOnlyColumns={showOnlyColumns}
+                setShowOnlyColumns={setShowOnlyColumns}
+              />
+            )}
+            {showFullScreen && (
+              <FullScreenTable
+                fullScreen={showFullScreen?.fullScreen}
+                setFullScreen={showFullScreen?.setFullScreen}
+              />
+            )}
           </div>
-          {headerAction && <div className="">{headerAction()}</div>}
-
-          <HeaderFilterList
-            columnFilterField={columnFilterField}
-            columnFilter={columnFilter}
-            setColumnFilter={setColumnFilter}
-          />
         </div>
+        {headerAction && <div className="">{headerAction()}</div>}
+
+        <HeaderFilterList
+          columnFilterField={columnFilterField}
+          columnFilter={columnFilter}
+          setColumnFilter={setColumnFilter}
+        />
       </div>
     </div>
   );
