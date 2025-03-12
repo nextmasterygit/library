@@ -52,7 +52,7 @@ const ColumnHideShow = ({
     className?: ClassNameType;
   }) => (
     <span
-      className={`w-full px-2 py-1 flex items-center space-x-2 cursor-pointer hover:bg-accent  ${className}`}
+      className={`w-full px-2 pr-4 py-1 flex items-center space-x-2 cursor-pointer hover:bg-accent  ${className}`}
       onClick={() => handleHideShows(column)}
     >
       <span className="text-sm">{column[columnKey]}</span>

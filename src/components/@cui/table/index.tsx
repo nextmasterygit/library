@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import TableMainBody from './main/TableMainBody';
 import { TableMainBodyTypes } from './main/TableMainBody';
 import Pagination, { PaginationType } from './main/Pagination';
@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
 import FullScreenDom from '../../../@core/tag/FullScreenDom';
 import useDivDimensions from '../../../@core/customHooks/useDivDimensions';
-import useDivSize from '../../../@core/customHooks/useDivSize';
+import TableTabs, { TabPropsType } from './main/TableTabs';
 
 type ClassNameType = React.ComponentProps<'div'>['className'];
 
@@ -18,6 +18,7 @@ interface TableProps extends TableMainBodyTypes {
   total: number;
   pagination?: PaginationType;
   header: HeaderType;
+  tab?: TabPropsType;
 }
 const Table = ({
   total,
@@ -26,7 +27,7 @@ const Table = ({
   header,
   pagination,
   showPagination = false,
-
+  tab,
   //tableMain
   data,
   rowId,
@@ -38,8 +39,14 @@ const Table = ({
   expandingContent,
 }: TableProps) => {
   const fullScreen = header?.showFullScreen?.fullScreen ?? false;
-  const { size: headerDimension, divRef: headerRef } = useDivSize(fullScreen);
-  const { size: footerDimension, divRef: footerRef } = useDivSize(fullScreen);
+  const { dimension: headerDimension, divRef: headerRef } = useDivDimensions(
+    null,
+    fullScreen,
+  );
+  const { dimension: footerDimension, divRef: footerRef } = useDivDimensions(
+    null,
+    fullScreen,
+  );
 
   const tableMain = () => (
     <TableMainBody
@@ -54,7 +61,7 @@ const Table = ({
       expandingContent={expandingContent}
     />
   );
-  console.log(headerDimension);
+
   return (
     <FullScreenDom open={fullScreen} className="overflow-hidden">
       <div
@@ -90,7 +97,19 @@ const Table = ({
               : { overflow: 'auto' }
           }
         >
-          {tableMain()}
+          {tab && (
+            <div>
+              <TableTabs
+                tabs={tab.tabs}
+                tableMain={tableMain}
+                activeTab={tab.activeTab}
+                setActiveTab={tab.setActiveTab}
+                setSelectedRows={setSelectedRows}
+                nested={tab.nested}
+              />
+            </div>
+          )}
+          {/* {tableMain()} */}
         </div>
 
         {showPagination && pagination && (

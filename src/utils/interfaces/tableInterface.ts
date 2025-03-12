@@ -4,6 +4,7 @@ import { ClassNameType } from './commonTypes';
 // export interface MenuListAction {
 //   selectedRows: Record<string, any>[];
 // }
+
 export interface ActionMenuList {
   title: string;
   icon: string;
@@ -67,4 +68,16 @@ export interface TableMainClassesType {
   striped?: boolean;
   stripedClass?: ClassNameType;
   tdBodyClass?: ClassNameType;
+}
+
+export interface TableType {
+  data: Record<string, any>[];
+  columns: ColumnType[];
+  actionMenuList?: ActionMenuListType; // function to generate action menu items based on row data.
+  newActionMenu?: ({}) => NewActionMenu[];
+  expandable?: boolean;
+  multiExpandable?: boolean;
+  expandingContent?: ExpandingTableType;
+  titleTable?: string | JSX.Element;
+  tabs?: TableType[];
 }

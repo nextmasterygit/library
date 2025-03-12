@@ -13,7 +13,7 @@ import Drawer from '../../drawer/Drawer';
 import IconDropdown from '../../dropDown/IconDropdown';
 
 interface TableHeaderActionType {
-  actionMenuList: ActionMenuListType;
+  actionMenuList?: ActionMenuListType;
   selectedRows: Record<string, unknown>[];
   setSelectedRows: (rows: Record<string, any>[]) => void;
   newActionMenu?: ({}) => NewActionMenu[];
@@ -70,7 +70,7 @@ const TableHeaderAction = ({
   };
 
   // main action
-  const mainActionMenu = actionMenuList({});
+  const mainActionMenu = actionMenuList ? actionMenuList({}) : undefined;
   const menuListCondition = filterActionMenuCondition(
     mainActionMenu,
     selectedRows,

@@ -1,63 +1,48 @@
-import {
-  Dispatch,
-  JSX,
-  SetStateAction,
-} from "react";
+import { Dispatch, JSX, SetStateAction } from 'react';
 import {
   ActionMenuList,
   ActionStateTypes,
-} from "../../../../utils/interfaces/tableInterface";
+} from '../../../../utils/interfaces/tableInterface';
 
 // condition on show menu
 export const filterActionMenuCondition = (
-  actionMenuList: ActionMenuList[],
+  actionMenuList: ActionMenuList[] | undefined,
   selectedRows: Record<string, unknown>[],
 ): ActionMenuList[] | undefined => {
   if (actionMenuList) {
-    const menuList = actionMenuList?.filter(
-      (item) => {
-        if (
-          selectedRows?.length === 1 &&
-          item.visible === "selected"
-        ) {
-          return item;
-        } else if (
-          selectedRows?.length > 1 &&
-          item.visible === "selected" &&
-          item.multiSelected
-        ) {
-          return item;
-        } else if (
-          (!selectedRows ||
-            selectedRows?.length === 0) &&
-          item.visible === "unselected"
-        ) {
-          return item;
-        } else if (
-          (!selectedRows ||
-            selectedRows?.length === 0) &&
-          !item.visible
-        ) {
-          return item;
-        }
-      },
-    );
+    const menuList = actionMenuList?.filter((item) => {
+      if (selectedRows?.length === 1 && item.visible === 'selected') {
+        return item;
+      } else if (
+        selectedRows?.length > 1 &&
+        item.visible === 'selected' &&
+        item.multiSelected
+      ) {
+        return item;
+      } else if (
+        (!selectedRows || selectedRows?.length === 0) &&
+        item.visible === 'unselected'
+      ) {
+        return item;
+      } else if (
+        (!selectedRows || selectedRows?.length === 0) &&
+        !item.visible
+      ) {
+        return item;
+      }
+    });
     return menuList;
   }
 };
 
 const handleRemove = (
-  setSelectedRows: (
-    rows: Record<string, any>[],
-  ) => void,
+  setSelectedRows: (rows: Record<string, any>[]) => void,
 ) => {
   setSelectedRows([]);
 };
 export const handleActionMenu = (
   toggleDrawer: () => void,
-  setDrawerContent: Dispatch<
-    SetStateAction<ActionStateTypes>
-  >,
+  setDrawerContent: Dispatch<SetStateAction<ActionStateTypes>>,
   Component: JSX.Element,
   title: string,
   multiSelected?: boolean,
@@ -75,18 +60,14 @@ export const handleActionMenu = (
 export const actionMenuContents = (
   listCondition: ActionMenuList[] | undefined,
   selectedRows: Record<string, unknown>[],
-  setSelectedRows: (
-    rows: Record<string, any>[],
-  ) => void,
+  setSelectedRows: (rows: Record<string, any>[]) => void,
   toggleDrawer: () => void,
-  setDrawerContent: Dispatch<
-    SetStateAction<ActionStateTypes>
-  >,
+  setDrawerContent: Dispatch<SetStateAction<ActionStateTypes>>,
 ) =>
   listCondition?.map((item, index) => ({
     key: index,
     title: item.title,
-    icon: item.icon ? item.icon : "tabler:plus",
+    icon: item.icon ? item.icon : 'tabler:plus',
 
     click: item.action
       ? () =>

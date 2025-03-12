@@ -114,7 +114,7 @@ const TableMainBody = ({
             <tr
               key={index}
               className={twMerge(
-                `border-none  ${striped && index % 2 !== 0 && stripedClass}`,
+                `border-none hover:bg-accent ${striped && index % 2 !== 0 && stripedClass}`,
                 `${trBodyClass}`,
               )}
             >

@@ -1,5 +1,4 @@
 'use client';
-import clsx from 'clsx';
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ClassNameType } from '../../props';
