@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 type ClassNameType = React.ComponentProps<'div'>['className'];
 
 interface Props {
@@ -23,7 +24,10 @@ const Checkbox = ({ checked = false, onChange, className }: Props) => {
   };
   return (
     <input
-      className={`cursor-pointer checkbox ${className} `}
+      className={twMerge(
+        `cursor-pointer checkbox select-none `,
+        ` ${className} `,
+      )}
       type="checkbox"
       checked={checked}
       onChange={handleChange}

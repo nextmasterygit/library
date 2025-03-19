@@ -4,7 +4,11 @@ import useDivDimensions from '../../../../@core/customHooks/useDivDimensions';
 import { renderCell } from '../depends/renderCell';
 import { toggleRowSelection } from '../depends/utility';
 import Checkbox from '../../../../components/@cui/textField/Checkbox';
-import { ColumnType, ExpandingTableType } from '../../../../props';
+import {
+  ClassNameType,
+  ColumnType,
+  ExpandingTableType,
+} from '../../../../props';
 import { twMerge } from 'tailwind-merge';
 
 import {
@@ -20,10 +24,15 @@ export interface TableMainBodyTypes {
   selectedRows?: Record<string, any>[];
   setSelectedRows?: (rows: Record<string, any>[]) => void;
   rowId?: 'id' | '_id' | string;
-  tableClasses?: TableMainClassesType;
+
   expandable?: boolean;
   multiExpandable?: boolean;
-  expandingContent?: ExpandingTableType;
+  ExpandingContent?: ExpandingTableType;
+  //styles
+  tableClasses?: TableMainClassesType;
+  striped?: boolean;
+  stripedClass?: ClassNameType;
+  tableWrapperClass?: ClassNameType;
 }
 const TableMainBody = ({
   data,
@@ -34,20 +43,21 @@ const TableMainBody = ({
   tableClasses,
   expandable,
   multiExpandable,
-  expandingContent,
+  ExpandingContent,
+  //style
+  striped,
+  stripedClass = 'bg-accent/50',
+  tableWrapperClass,
 }: TableMainBodyTypes) => {
   const {
-    tableWrapperClass,
     tableClass,
     trHeadClass,
     tHeadClass,
     thHeadClass,
-    tableInsideClass,
+    tableInsideClass = 'border border-border shadow-sm shadow-effect-lg text-left px-2 ',
     tBodyClass,
     trBodyClass,
     tdBodyClass,
-    striped,
-    stripedClass,
   } = tableClasses || {};
   const [selectAll, setSelectAll] = useState(false);
   // expendable states
@@ -69,11 +79,14 @@ const TableMainBody = ({
 
   const TableHead = () => (
     <thead className={twMerge(`border-none `, `${tHeadClass} `)}>
-      <tr className={twMerge(`z-10  sticky top-0`, ` ${trHeadClass} `)}>
+      <tr
+        className={twMerge(`z-10  sticky top-0 bg-accent`, ` ${trHeadClass} `)}
+      >
         {(expandable || multiExpandable) && (
           <th
             className={twMerge(
-              `   ${tableInsideClass} select-none`,
+              `   select-none`,
+              ` ${tableInsideClass}`,
               ` ${thHeadClass} w-10`,
             )}
           ></th>
@@ -81,7 +94,7 @@ const TableMainBody = ({
         {selectedRows && (
           <th
             className={twMerge(
-              `   ${tableInsideClass} `,
+              `   ${tableInsideClass} select-none`,
               ` ${thHeadClass} w-10`,
             )}
           >
@@ -165,14 +178,14 @@ const TableMainBody = ({
               openExpandableRow,
               index,
               multiExpandable,
-              expandingContent,
+              ExpandingContent,
             ) && (
               <ExtentableContent
                 index={index}
                 item={item}
                 columns={columns}
                 data={data}
-                expandingContent={expandingContent}
+                ExpandingContent={ExpandingContent}
                 expandableWidth={dimension?.offsetWidth}
               />
             )}

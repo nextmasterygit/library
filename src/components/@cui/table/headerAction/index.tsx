@@ -86,6 +86,25 @@ const TableHeaderAction = ({
       </div>
     );
   };
+  const ExportHandle: NewDropDownMenu[] = [
+    {
+      icon: 'lets-icons:import-duotone-line',
+      contents: ({}: Record<string, any>) => [
+        {
+          title: 'Export All',
+          icon: 'solar:file-download-bold',
+          Component: <></>,
+        },
+        {
+          title: ' Export Selected',
+          icon: 'solar:file-download-bold',
+          Component: <></>,
+          visible: 'selected',
+          multiSelected: true,
+        },
+      ],
+    },
+  ];
   return (
     <>
       <div>
@@ -110,6 +129,7 @@ const TableHeaderAction = ({
                 </React.Fragment>
               );
             })}
+          <React.Fragment>{newActionMenuRender(ExportHandle)}</React.Fragment>
         </div>
       </div>
       <Drawer

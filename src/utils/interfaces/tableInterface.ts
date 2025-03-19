@@ -55,9 +55,9 @@ export type ExpandingTableType = (props: {
   index: number;
 }) => React.ReactNode;
 export type ActionMenuListType = ({}) => ActionMenuList[];
+export type NewActionMenuType = ({}) => NewActionMenu[];
 
 export interface TableMainClassesType {
-  tableWrapperClass?: ClassNameType;
   tableClass?: ClassNameType;
   tHeadClass?: ClassNameType;
   tableInsideClass?: ClassNameType;
@@ -65,19 +65,20 @@ export interface TableMainClassesType {
   thHeadClass?: ClassNameType;
   tBodyClass?: ClassNameType;
   trBodyClass?: ClassNameType;
-  striped?: boolean;
-  stripedClass?: ClassNameType;
   tdBodyClass?: ClassNameType;
 }
 
-export interface TableType {
+export interface TableTabsType {
   data: Record<string, any>[];
   columns: ColumnType[];
+  total?: number;
   actionMenuList?: ActionMenuListType; // function to generate action menu items based on row data.
-  newActionMenu?: ({}) => NewActionMenu[];
+  newActionMenu?: NewActionMenuType;
   expandable?: boolean;
   multiExpandable?: boolean;
-  expandingContent?: ExpandingTableType;
+  ExpandingContent?: ExpandingTableType;
   titleTable?: string | JSX.Element;
-  tabs?: TableType[];
+  rowId?: string;
 }
+
+export interface TableType extends TableTabsType {}

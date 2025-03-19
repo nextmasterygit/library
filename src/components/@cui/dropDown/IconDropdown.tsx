@@ -1,17 +1,17 @@
-"use client";
-import React, { FC } from "react";
+'use client';
+import React, { FC } from 'react';
 import {
   PopOver,
   PopOverContent,
   PopOverTrigger,
-} from "../../../@core/common/popOver/PopOver";
-import Iconify from "../../../@core/common/icon";
-import Shadow from "../../../@core/tag/Shadow";
+} from '../../../@core/common/popOver/PopOver';
+import Iconify from '../../../@core/common/icon';
+import Shadow from '../../../@core/tag/Shadow';
 import {
   ClassNameType,
   ChildrenType,
-} from "../../../utils/interfaces/commonTypes";
-import { twMerge } from "tailwind-merge";
+} from '../../../utils/interfaces/commonTypes';
+import { twMerge } from 'tailwind-merge';
 
 export interface ContentItem {
   [key: string]: any;
@@ -29,7 +29,7 @@ export interface ContentListType {
 export const ContentList: FC<ContentListType> = ({
   content,
   contentClass,
-  contentId = "title",
+  contentId = 'title',
 }) => {
   const handleToggle = (click?: () => void) => {
     if (click) {
@@ -45,15 +45,8 @@ export const ContentList: FC<ContentListType> = ({
       )}
       onClick={() => handleToggle(content?.click)}
     >
-      {content?.icon && (
-        <Iconify
-          fontSize="0.9rem"
-          icon={content.icon}
-        />
-      )}
-      <span className="text-sm">
-        {content[contentId]}
-      </span>
+      {content?.icon && <Iconify fontSize="0.9rem" icon={content.icon} />}
+      <span className="text-sm">{content[contentId]}</span>
     </span>
   );
 };
@@ -64,7 +57,7 @@ export interface Props {
   contentId?: string; //use for key title in contents,
   contentClass?: ClassNameType;
   customIcon?: () => React.ReactNode;
-  style?: "dropdown" | "popover";
+  style?: 'dropdown' | 'popover';
   title?: string;
   mouseTrigger?: boolean;
   toggleOnContent?: boolean;
@@ -72,18 +65,18 @@ export interface Props {
 }
 
 // Main Component
-const IconDropdown: FC<Props> = ({
+const IconDropdown = ({
   icon,
   title,
   contents = [
     {
-      title: "Create",
-      icon: "tabler:plus",
+      title: 'Create',
+      icon: 'tabler:plus',
       click: () => {},
     },
     {
-      title: "Edit",
-      icon: "tabler:edit",
+      title: 'Edit',
+      icon: 'tabler:edit',
       click: () => {},
     },
   ],
@@ -94,14 +87,10 @@ const IconDropdown: FC<Props> = ({
   mouseTrigger,
   toggleOnContent,
   children,
-}) => {
+}: Props) => {
   return (
     <>
-      <PopOver
-        style={style}
-        toggle={true}
-        mouseTrigger={mouseTrigger}
-      >
+      <PopOver style={style} toggle={true} mouseTrigger={mouseTrigger}>
         <PopOverTrigger>
           <div className="flex">
             {customIcon
@@ -109,9 +98,7 @@ const IconDropdown: FC<Props> = ({
               : icon && (
                   <Iconify
                     fontSize="2rem"
-                    icon={
-                      icon || "mdi:call-to-action"
-                    }
+                    icon={icon || 'mdi:call-to-action'}
                     className={`iconPrimary `}
                   />
                 )}
@@ -119,32 +106,20 @@ const IconDropdown: FC<Props> = ({
             {title && title}
           </div>
         </PopOverTrigger>
-        <PopOverContent
-          toggleOnContent={toggleOnContent}
-        >
-          <Shadow
-            space="0"
-            className="border border-border bg-background"
-          >
+        <PopOverContent toggleOnContent={toggleOnContent}>
+          <Shadow space="0" className="border border-border bg-background">
             <div className="flex flex-col select-none ">
               {children
                 ? children
-                : contents?.map(
-                    (
-                      content: ContentItem,
-                      key: number,
-                    ) => (
-                      <span key={key}>
-                        <ContentList
-                          content={content}
-                          contentClass={
-                            contentClass
-                          }
-                          contentId={contentId}
-                        />
-                      </span>
-                    ),
-                  )}
+                : contents?.map((content: ContentItem, key: number) => (
+                    <span key={key}>
+                      <ContentList
+                        content={content}
+                        contentClass={contentClass}
+                        contentId={contentId}
+                      />
+                    </span>
+                  ))}
             </div>
           </Shadow>
         </PopOverContent>

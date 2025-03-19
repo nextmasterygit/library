@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { JSX, useState } from 'react';
 import TableMainBody from './main/TableMainBody';
 import { TableMainBodyTypes } from './main/TableMainBody';
 import Pagination, { PaginationType } from './main/Pagination';
@@ -8,36 +8,54 @@ import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
 import FullScreenDom from '../../../@core/tag/FullScreenDom';
 import useDivDimensions from '../../../@core/customHooks/useDivDimensions';
-import TableTabs, { TabPropsType } from './main/TableTabs';
+import TableTabs from './main/TableTabs';
+import { ColumnType, TableTabsType } from '../../../props';
 
 type ClassNameType = React.ComponentProps<'div'>['className'];
 
 interface TableProps extends TableMainBodyTypes {
   layoutClass?: ClassNameType;
   showPagination?: boolean;
-  total: number;
+  total?: number;
   pagination?: PaginationType;
   header: HeaderType;
-  tab?: TabPropsType;
+  tabs?: TableTabsType[];
+  activeTab?: number;
+  titleTable?: string | JSX.Element;
+  setActiveTab?: (n: number) => void;
+  showColumnFilter?: boolean;
 }
 const Table = ({
-  total,
-  columns,
   layoutClass,
   header,
   pagination,
   showPagination = false,
-  tab,
+  tabs,
+  activeTab,
+  setActiveTab,
+  titleTable,
+
   //tableMain
   data,
+  columns,
+  total,
   rowId,
   selectedRows,
   setSelectedRows,
+  showColumnFilter,
   tableClasses,
   expandable,
   multiExpandable,
-  expandingContent,
+  ExpandingContent,
+  //styles
+  striped,
+  stripedClass,
+  tableWrapperClass,
 }: TableProps) => {
+  //hooks tabs
+
+  const [showOnlyColumns, setShowOnlyColumns] = useState(columns);
+  const [columnFilterField, setColumnFilterFields] = useState<ColumnType[]>([]);
   const fullScreen = header?.showFullScreen?.fullScreen ?? false;
   const { dimension: headerDimension, divRef: headerRef } = useDivDimensions(
     null,
@@ -52,13 +70,16 @@ const Table = ({
     <TableMainBody
       data={data}
       rowId={rowId}
-      columns={header.showOnlyColumns ? header.showOnlyColumns : columns}
+      columns={showColumnFilter ? showOnlyColumns : columns}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       tableClasses={tableClasses}
       expandable={expandable}
       multiExpandable={multiExpandable}
-      expandingContent={expandingContent}
+      ExpandingContent={ExpandingContent}
+      striped={striped}
+      stripedClass={stripedClass}
+      tableWrapperClass={tableWrapperClass}
     />
   );
 
@@ -68,7 +89,7 @@ const Table = ({
         className={twMerge(
           clsx(
             { 'p-4 py-10': !fullScreen }, // Apply when not fullScreen
-            'shadow-2xl shadow-border border border-border rounded-[20px] space-y-2',
+            ' shadow-2xl shadow-border border border-border rounded-[20px] gap-2 ',
             { 'p-0 m-0 space-y-0': fullScreen }, // Apply when fullScreen
             layoutClass,
           ),
@@ -79,10 +100,15 @@ const Table = ({
             dates={header?.dates}
             columnsFilter={header?.columnsFilter}
             globalFilters={header?.globalFilters}
-            showColumnFilterFields={header?.showColumnFilterFields}
+            showColumnFilterFields={{
+              columnFilterField,
+              setColumnFilterFields,
+            }}
             showFullScreen={header.showFullScreen}
-            showOnlyColumns={header?.showOnlyColumns}
-            setShowOnlyColumns={header?.setShowOnlyColumns}
+            showOnlyColumns={showColumnFilter ? showOnlyColumns : undefined}
+            setShowOnlyColumns={
+              showColumnFilter ? setShowOnlyColumns : undefined
+            }
             headerAction={header?.headerAction}
             columns={columns}
           />
@@ -97,19 +123,16 @@ const Table = ({
               : { overflow: 'auto' }
           }
         >
-          {tab && (
-            <div>
-              <TableTabs
-                tabs={tab.tabs}
-                tableMain={tableMain}
-                activeTab={tab.activeTab}
-                setActiveTab={tab.setActiveTab}
-                setSelectedRows={setSelectedRows}
-                nested={tab.nested}
-              />
-            </div>
-          )}
-          {/* {tableMain()} */}
+          <div>
+            <TableTabs
+              tabs={tabs}
+              tableMain={tableMain}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              setSelectedRows={setSelectedRows}
+              titleTable={titleTable}
+            />
+          </div>
         </div>
 
         {showPagination && pagination && (

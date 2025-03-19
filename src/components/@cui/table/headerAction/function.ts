@@ -24,10 +24,7 @@ export const filterActionMenuCondition = (
         item.visible === 'unselected'
       ) {
         return item;
-      } else if (
-        (!selectedRows || selectedRows?.length === 0) &&
-        !item.visible
-      ) {
+      } else if (!item.visible) {
         return item;
       }
     });

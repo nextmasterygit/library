@@ -59,7 +59,7 @@ interface ExtentableContentType {
   data: Record<string, any>[];
   index: number;
   columns: ColumnType[];
-  expandingContent?: ExpandingTableType;
+  ExpandingContent?: ExpandingTableType;
   expandableWidth?: string | number;
 }
 export const ExtentableContent = ({
@@ -68,7 +68,7 @@ export const ExtentableContent = ({
   index,
   columns,
   expandableWidth,
-  expandingContent,
+  ExpandingContent,
 }: ExtentableContentType) => {
   return (
     <tr className="" key={index}>
@@ -78,12 +78,8 @@ export const ExtentableContent = ({
             width: `${expandableWidth}px`,
           }}
         >
-          {expandingContent &&
-            expandingContent({
-              row: item,
-              index,
-              data,
-            })}
+          {/* <div>adasdasd</div> */}
+          {ExpandingContent && ExpandingContent({ row: item, index, data })}
         </div>
       </td>
     </tr>
