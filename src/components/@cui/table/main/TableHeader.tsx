@@ -1,5 +1,4 @@
 import { JSX } from 'react';
-import { hasObjectValues } from '../../../../utils/helpers';
 import { ColumnType } from '../../../../props';
 // component
 import FromToDateFilter, {
@@ -20,6 +19,7 @@ import ColumnHideShow, {
 import FullScreenTable, {
   FullScreenTableType,
 } from '../component/FullScreenTable';
+import { utility } from '../../../../@core/utility/helpers';
 
 export interface HeaderType extends ColumnHideShowType {
   headerAction?: () => JSX.Element;
@@ -54,7 +54,7 @@ const TableHeader = ({
     <div>
       <div className=" flex flex-col font-semibold">
         <div className="flex items-center justify-between">
-          {hasObjectValues(dates) && setFromDate && setToDate && (
+          {utility.hasObjectValues(dates) && setFromDate && setToDate && (
             <FromToDateFilter
               fromDate={fromDate}
               setFromDate={setFromDate}

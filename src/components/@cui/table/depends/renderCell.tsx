@@ -1,4 +1,6 @@
-import { currencyFormatter, formatDate } from '../../../../utils/helpers';
+// import { currencyFormatter, formatDate } from '../../../../utils/helpers';
+import { utility } from '../../../../@core/utility/helpers';
+
 import React from 'react';
 import { ColumnType } from '../../../../props';
 export const renderCell = (
@@ -67,9 +69,13 @@ export const renderCell = (
 
   switch (column.type) {
     case 'date':
-      return formatDate(value as string | Date);
+      return utility.formatDate(value as string | Date);
     case 'currency':
-      return currencyFormatter(value as number, column.currency, column.format);
+      return utility.currencyFormatter(
+        value as number,
+        column.currency,
+        column.format,
+      );
     // case "chip":
     //   return chip(value);
     default:

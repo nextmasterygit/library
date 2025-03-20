@@ -32,11 +32,6 @@ export const filterActionMenuCondition = (
   }
 };
 
-const handleRemove = (
-  setSelectedRows: (rows: Record<string, any>[]) => void,
-) => {
-  setSelectedRows([]);
-};
 export const handleActionMenu = (
   toggleDrawer: () => void,
   setDrawerContent: Dispatch<SetStateAction<ActionStateTypes>>,
@@ -60,6 +55,7 @@ export const actionMenuContents = (
   setSelectedRows: (rows: Record<string, any>[]) => void,
   toggleDrawer: () => void,
   setDrawerContent: Dispatch<SetStateAction<ActionStateTypes>>,
+  removeSelection: () => void,
 ) =>
   listCondition?.map((item, index) => ({
     key: index,
@@ -71,9 +67,12 @@ export const actionMenuContents = (
           // @ts-expect-error
           item.action({
             selectedRows: selectedRows,
+            setSelectedRows,
+            removeSelection,
           })
       : item.deleted
-        ? () => handleRemove(setSelectedRows)
+        ? // @ts-expect-error
+          () => item.deleted({ setSelectedRows, selectedRows, removeSelection })
         : item.Component
           ? () =>
               handleActionMenu(

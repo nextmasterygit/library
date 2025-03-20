@@ -5,15 +5,21 @@ import { ClassNameType } from './commonTypes';
 //   selectedRows: Record<string, any>[];
 // }
 
+interface ActionType {
+  selectedRows: Record<string, unknown>[];
+  setSelectedRows: (rows: Record<string, any>[]) => void;
+  removeSelection: () => void;
+}
 export interface ActionMenuList {
   title: string;
   icon: string;
-  Component?: JSX.Element;
+  Component?: ((props: ActionType) => JSX.Element) | JSX.Element;
   visible?: 'selected' | 'unselected';
   multiSelected?: boolean;
-  deleted?: boolean;
-  action?: (props: Record<string, any>) => JSX.Element;
+  deleted?: (props: ActionType) => void | JSX.Element;
+  action?: (props: ActionType) => void | JSX.Element;
 }
+
 export interface RenderType {
   row: number | string | Record<string, any> | null;
   index: number;
@@ -45,7 +51,7 @@ export interface NewActionMenu {
   action?: (props: Record<string, any>) => JSX.Element;
 }
 export interface ActionStateTypes {
-  Component: JSX.Element;
+  Component: ((props: ActionType) => JSX.Element) | JSX.Element;
   multiSelected?: boolean;
   title: string;
 }

@@ -43,7 +43,7 @@ export { default as InputDatePicker } from './components/@cui/datePicker/InputDa
 export { default as Table } from './components/@cui/table';
 
 //utils
-export { helpers } from './@core/utility';
+export { helpers, handleExportCsv } from './@core/utility';
 
 //hooks
 export { useTableTabs } from './components/@cui/table/depends/hooks';

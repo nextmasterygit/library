@@ -11,18 +11,23 @@ import { actionMenuContents, filterActionMenuCondition } from './function';
 
 import Drawer from '../../drawer/Drawer';
 import IconDropdown from '../../dropDown/IconDropdown';
+import { handleExportCsv } from '../../../../@core/utility';
 
 interface TableHeaderActionType {
+  data: Record<string, unknown>[];
   actionMenuList?: ActionMenuListType;
   selectedRows: Record<string, unknown>[];
   setSelectedRows: (rows: Record<string, any>[]) => void;
   newActionMenu?: ({}) => NewActionMenu[];
+  removeSelection: () => void;
 }
 const TableHeaderAction = ({
+  data,
   actionMenuList,
   selectedRows,
   setSelectedRows,
   newActionMenu,
+  removeSelection,
 }: TableHeaderActionType) => {
   const [drawerToggle, setDrawerToggle] = useState(false);
   const [drawerContent, setDrawerContent] = useState<ActionStateTypes>({
@@ -44,6 +49,7 @@ const TableHeaderAction = ({
       setSelectedRows,
       toggleDrawer,
       setDrawerContent,
+      removeSelection,
     );
   };
   //new Action Menu
@@ -93,7 +99,9 @@ const TableHeaderAction = ({
         {
           title: 'Export All',
           icon: 'solar:file-download-bold',
-          Component: <></>,
+          action: () => {
+            handleExportCsv(data);
+          },
         },
         {
           title: ' Export Selected',
@@ -136,7 +144,15 @@ const TableHeaderAction = ({
         open={drawerToggle}
         close={toggleDrawer}
         title={drawerContent.title}
-      ></Drawer>
+      >
+        {typeof drawerContent.Component === 'function'
+          ? drawerContent.Component({
+              removeSelection,
+              selectedRows,
+              setSelectedRows,
+            })
+          : drawerContent.Component}
+      </Drawer>
     </>
   );
 };
