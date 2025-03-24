@@ -115,13 +115,13 @@ interface ChildrenType {
   children: ReactNode;
   className?: ClassNameType;
 }
-export const Title = ({
+export const DashboardSidebarTitle = ({
   children,
   className = 'p-4 text-center text-xl font-bold',
 }: ChildrenType) => {
   return <div className={className}>{children}</div>;
 };
-(Title as any).__TITLE_CONTENT = true;
+(DashboardSidebarTitle as any).__TITLE_CONTENT = true;
 
 export const DashboardSidebarContent = ({
   children,
