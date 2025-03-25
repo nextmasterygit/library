@@ -3,6 +3,7 @@ import {
   ActionMenuList,
   ActionMenuListType,
   ActionStateTypes,
+  ColumnType,
   NewActionMenu,
   NewDropDownMenu,
 } from '../../../../utils/interfaces/tableInterface';
@@ -11,7 +12,10 @@ import { actionMenuContents, filterActionMenuCondition } from './function';
 
 import Drawer from '../../drawer/Drawer';
 import IconDropdown from '../../dropDown/IconDropdown';
-import { handleExportCsv } from '../../../../@core/utility';
+import {
+  handleExportCsv,
+  handleArrangeCsvData,
+} from '../../../../@core/utility';
 
 interface TableHeaderActionType {
   data: Record<string, unknown>[];
@@ -20,9 +24,11 @@ interface TableHeaderActionType {
   setSelectedRows: (rows: Record<string, any>[]) => void;
   newActionMenu?: ({}) => NewActionMenu[];
   removeSelection: () => void;
+  columns: ColumnType[];
 }
 const TableHeaderAction = ({
   data,
+  columns,
   actionMenuList,
   selectedRows,
   setSelectedRows,
@@ -106,7 +112,9 @@ const TableHeaderAction = ({
         {
           title: ' Export Selected',
           icon: 'solar:file-download-bold',
-          Component: <></>,
+          action: () => {
+            handleArrangeCsvData(selectedRows, columns);
+          },
           visible: 'selected',
           multiSelected: true,
         },
