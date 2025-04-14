@@ -56,7 +56,7 @@ export interface Props {
   contents?: ContentItem[];
   contentId?: string; //use for key title in contents,
   contentClass?: ClassNameType;
-  customIcon?: () => React.ReactNode;
+  customTitle?: () => React.ReactNode;
   style?: 'dropdown' | 'popover';
   title?: string;
   mouseTrigger?: boolean;
@@ -83,7 +83,7 @@ const IconDropdown = ({
   contentClass,
   contentId,
   style,
-  customIcon,
+  customTitle,
   mouseTrigger,
   toggleOnContent,
   children,
@@ -93,8 +93,8 @@ const IconDropdown = ({
       <PopOver style={style} toggle={true} mouseTrigger={mouseTrigger}>
         <PopOverTrigger>
           <div className="flex">
-            {customIcon
-              ? customIcon()
+            {customTitle
+              ? customTitle()
               : icon && (
                   <Iconify
                     fontSize="2rem"
@@ -108,11 +108,11 @@ const IconDropdown = ({
         </PopOverTrigger>
         <PopOverContent toggleOnContent={toggleOnContent}>
           <Shadow space="0" className="border border-border bg-background">
-            <div className="flex flex-col select-none ">
+            <div className=" flex flex-col select-none ">
               {children
                 ? children
                 : contents?.map((content: ContentItem, key: number) => (
-                    <span key={key}>
+                    <span key={key} className="">
                       <ContentList
                         content={content}
                         contentClass={contentClass}

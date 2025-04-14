@@ -159,7 +159,7 @@ export const PopOverContent: FC<Partial<PopOverContentProps>> = ({
     >
       <div
         className={` absolute min-w-max z-popOver  ${
-          style === 'dropdown' ? 'w-full' : `w-auto my-3 `
+          style === 'dropdown' ? 'w-max' : `w-auto my-3 `
         } ${dropdownLeftPositionClass}  ${dropdownPositionClass} `}
       >
         <div>{children}</div>
