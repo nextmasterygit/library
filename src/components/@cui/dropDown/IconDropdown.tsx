@@ -1,5 +1,5 @@
 'use client';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   PopOver,
   PopOverContent,
@@ -16,14 +16,17 @@ import { twMerge } from 'tailwind-merge';
 export interface ContentItem {
   [key: string]: any;
   icon?: string;
-  title: string | number;
-  click: () => void;
+  title?: string | number;
+  click?: () => void;
   className?: ClassNameType;
 }
 export interface ContentListType {
   content: ContentItem;
   contentId?: string; //use for key title in contents,
+  contentTitle?: string; //use for value  in contents,
   contentClass?: ClassNameType;
+  setValue?: (v: any) => void;
+  value?: any;
 }
 // Inside Icon Dropdown
 export const ContentList: FC<ContentListType> = ({
@@ -36,17 +39,19 @@ export const ContentList: FC<ContentListType> = ({
       click();
     }
   };
+
   return (
     <span
       className={twMerge(
-        `w-full px-2 py-1 flex items-center space-x-2 cursor-pointer hover:bg-accent`,
+        `w-full   flex items-center space-x-2 cursor-pointer hover:bg-accent`,
         ` ${contentClass}`,
         `${content.className}`,
       )}
       onClick={() => handleToggle(content?.click)}
     >
       {content?.icon && <Iconify fontSize="0.9rem" icon={content.icon} />}
-      <span className="text-sm">{content[contentId]}</span>
+
+      <span className="text-sm px-2 py-1">{content[contentId]}</span>
     </span>
   );
 };
@@ -56,7 +61,7 @@ export interface Props {
   contents?: ContentItem[];
   contentId?: string; //use for key title in contents,
   contentClass?: ClassNameType;
-  customTitle?: () => React.ReactNode;
+  customTitle?: (b: boolean) => React.ReactNode;
   style?: 'dropdown' | 'popover';
   title?: string;
   mouseTrigger?: boolean;
@@ -88,13 +93,19 @@ const IconDropdown = ({
   toggleOnContent,
   children,
 }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
-      <PopOver style={style} toggle={true} mouseTrigger={mouseTrigger}>
+      <PopOver
+        style={style}
+        toggle={true}
+        mouseTrigger={mouseTrigger}
+        setIsOpen={setIsOpen}
+      >
         <PopOverTrigger>
           <div className="flex">
             {customTitle
-              ? customTitle()
+              ? customTitle(isOpen)
               : icon && (
                   <Iconify
                     fontSize="2rem"

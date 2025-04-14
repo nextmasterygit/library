@@ -9,6 +9,7 @@ interface PopOverProps {
   style?: 'dropdown' | 'popover';
   layout?: 'open' | 'fixed' | 'close';
   mouseTrigger?: boolean;
+  setIsOpen?: (b: boolean) => void;
 }
 
 export const PopOver: FC<PopOverProps> = ({
@@ -17,6 +18,7 @@ export const PopOver: FC<PopOverProps> = ({
   style,
   layout,
   mouseTrigger,
+  setIsOpen,
 }) => {
   const {
     open,
@@ -33,11 +35,19 @@ export const PopOver: FC<PopOverProps> = ({
       setOpen(false);
     }
   }, [layout, setOpen]);
+  useEffect(() => {
+    if (setIsOpen) {
+      setIsOpen(open);
+    }
+  }, [open, setOpen]);
   return (
     <div
       className="relative "
       ref={divRef}
-      onMouseLeave={() => (mouseTrigger && setOpen ? setOpen(false) : {})}
+      onMouseLeave={() => {
+        if (mouseTrigger && setOpen) setOpen(false);
+        if (mouseTrigger && setIsOpen) setIsOpen(false);
+      }}
     >
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
@@ -52,6 +62,7 @@ export const PopOver: FC<PopOverProps> = ({
             style,
             layout,
             mouseTrigger,
+            setIsOpen,
           } as any);
         }
         return child;
@@ -68,6 +79,7 @@ interface PopOverTriggerProps {
   style?: string;
   divRef: React.RefObject<HTMLDivElement>;
   mouseTrigger: boolean;
+  setIsOpen?: (b: boolean) => void;
 }
 
 export const PopOverTrigger: FC<Partial<PopOverTriggerProps>> = ({
@@ -77,10 +89,14 @@ export const PopOverTrigger: FC<Partial<PopOverTriggerProps>> = ({
   shouldOpenUpwards,
   style,
   mouseTrigger,
+  setIsOpen,
 }) => {
   const handleTrigger = () => {
     if (setOpen) {
       setOpen(!open);
+      if (setIsOpen) {
+        setIsOpen(!open);
+      }
     }
   };
   const content = () => (

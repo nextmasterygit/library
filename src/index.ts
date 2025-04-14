@@ -59,6 +59,8 @@ export { default as DragDropArray } from './components/@cui/draggable/DragDropAr
 export { default as Table } from './components/@cui/table';
 export { default as TextField } from './components/@cui/textField/TextField';
 export { default as SearchTextField } from './components/@cui/textField/SearchTextField';
+export { default as MouseTooltip } from './components/@cui/tooltip/MouseTooltip';
+
 //utils
 export { helpers, handleExportCsv } from './@core/utility';
 
